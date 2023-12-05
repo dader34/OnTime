@@ -49,11 +49,6 @@ class Event(db.Model, SerializerMixin):
             raise ValueError('Location must be a str between 5 and 50 chars')
 
 
-        
-
-
-
-
 # id: Integer (Primary Key)
 # title: String
 # description: Text
