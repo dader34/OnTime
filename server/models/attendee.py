@@ -1,17 +1,20 @@
 from sqlalchemy_serializer import SerializerMixin
 from sqlalchemy.orm import validates
-from user import User
-from event import Event
+from .user import User
+from .event import Event
 from setup import db
 
 
 class Attendee(db.Model, SerializerMixin):
-    __table__ = 'attendees'
+    __tablename__ = 'attendees'
 
     id = db.Column(db.Integer, primary_key=True)
-    user_id = db.Column(db.Integer, db.ForeginKey('users.id'),nullable=False)
+    user_id = db.Column(db.Integer, db.ForeignKey('users.id'),nullable=False)
     event_id = db.Column(db.Integer, db.ForeignKey('events.id'),nullable=False)
-    created_at = db.Column(db.DateTime, server_default=db.func.now)
+    created_at = db.Column(db.DateTime, server_default=db.func.now())
+
+    user = db.relationship('User',back_populates='attendees')
+    event = db.relationship('Event', back_populates='attendees')
 
     @validates('user_id')
     def user_validation(self,key,id):
