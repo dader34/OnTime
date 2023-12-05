@@ -6,7 +6,8 @@ class Category(db.Model,SerializerMixin):
     __tablename__ = 'categories'
 
     id = db.Column(db.Integer, primary_key=True)
-    name = db.Column(db.String, unique=True)
+    name = db.Column(db.String, unique=True,nullable=False)
+    created_at = db.Column(db.DateTime, server_default=db.func.now)
 
     @validates('name')
     def name_validation(self,key,name):

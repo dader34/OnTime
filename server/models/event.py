@@ -7,11 +7,11 @@ class Event(db.Model, SerializerMixin):
     __tablename__ = 'events'
 
     id = db.Column(db.Integer, primary_key=True)
-    title = db.Column(db.String)
-    description = db.Column(db.String)
-    location = db.Column(db.String)
-    date = db.Column(db.String)
-    organizer_id = db.Column(db.Integer, db.ForeignKey('users.id'))
+    title = db.Column(db.String,nullable=False)
+    description = db.Column(db.String,nullable=False)
+    location = db.Column(db.String,nullable=False)
+    date = db.Column(db.String,nullable=False)
+    organizer_id = db.Column(db.Integer, db.ForeignKey('users.id'),nullable=False)
     created_at = db.Column(db.DateTime, server_default=db.func.now())
 
     @validates('title')
