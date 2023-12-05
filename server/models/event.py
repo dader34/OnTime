@@ -1,3 +1,4 @@
+from sqlalchemy.ext.associationproxy import association_proxy
 from sqlalchemy_serializer import SerializerMixin
 from sqlalchemy.orm import validates
 from datetime import datetime
@@ -13,6 +14,9 @@ class Event(db.Model, SerializerMixin):
     date = db.Column(db.String,nullable=False)
     organizer_id = db.Column(db.Integer, db.ForeignKey('users.id'),nullable=False)
     created_at = db.Column(db.DateTime, server_default=db.func.now())
+
+    attendees = db.relationship('Attendee',back_populates='event')
+    users = association_proxy('attendees','user')
 
     @validates('title')
     def title_validation(self,key,title):
@@ -34,12 +38,12 @@ class Event(db.Model, SerializerMixin):
             event_date = datetime.strptime(date, '%Y-%m-%d').date()
             
             if event_date < datetime.today().date():
-                raise ValueError("Event date cannot be in the past.")
+                raise ValueError('Event date cannot be in the past.')
             
             return date
         
         else:
-            raise ValueError("Date must be a str")
+            raise ValueError('Date must be a str')
         
     @validates('location')
     def location_validation(self,key,location):

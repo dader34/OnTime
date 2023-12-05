@@ -18,10 +18,10 @@ app.config['JWT_SECRET_KEY'] = os.environ.get("KEY")
 app.config['JWT_ACCESS_TOKEN_EXPIRES'] = timedelta(days=7)
 
 CORS(app)
-db = SQLAlchemy()
-api = Api(app)
+db = SQLAlchemy(app)
 migrate = Migrate(app,db)
-db.init_app(app)
+api = Api(app)
+# db.init_app(app)
 
 @app.route('/')
 def index():

@@ -1,4 +1,11 @@
-from setup import app, db
+from setup import app, db, api
+import sys
+sys.path.append('.')
+from models.user import User
+from models.event import Event
+from models.event_category import EventCategory
+from models.category import Category
+from models.attendee import Attendee
 
 
 
