@@ -1,6 +1,6 @@
 # OnTime - Event Management App
 
-![OnTime Logo](link-to-logo.png)
+![OnTime Logo](client/public/OnTime.jpeg)
 
 OnTime is an event management application that helps users discover, create, and manage events seamlessly. Whether you're an event organizer or an attendee, OnTime provides a user-friendly platform for all your event-related needs.
 
