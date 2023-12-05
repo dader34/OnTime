@@ -11,8 +11,8 @@ class EventCategory(db.Model, SerializerMixin):
     event_id = db.Column(db.Integer, db.ForeignKey('events.id'),nullable=False)
     category_id = db.Column(db.Integer, db.ForeignKey('categories.id'),nullable=False)
 
-    event = db.relationship('Event', back_populates='event_categories')
-    category = db.relationship('Category',back_populates='event_categories')
+    event = db.relationship('Event', back_populates='event_categories',cascade='all, delete-orphan', passive_deletes=True)
+    category = db.relationship('Category',back_populates='event_categories',cascade='all, delete-orphan', passive_deletes=True)
 
     @validates('event_id')
     def event_validation(self,key,id):
