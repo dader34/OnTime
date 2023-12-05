@@ -15,7 +15,7 @@ class Event(db.Model, SerializerMixin):
     organizer_id = db.Column(db.Integer, db.ForeignKey('users.id'),nullable=False)
     created_at = db.Column(db.DateTime, server_default=db.func.now())
 
-    attendees = db.relationship('Attendee',back_populates='event')
+    attendees = db.relationship('Attendee',back_populates='event',cascade='all, delete-orphan', passive_deletes=True)
     users = association_proxy('attendees','user')
 
     @validates('title')

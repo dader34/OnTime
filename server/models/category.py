@@ -10,7 +10,7 @@ class Category(db.Model,SerializerMixin):
     name = db.Column(db.String, unique=True,nullable=False)
     created_at = db.Column(db.DateTime, server_default=db.func.now())
 
-    event_categories = db.relationship('EventCategory',back_populates='category')
+    event_categories = db.relationship('EventCategory',back_populates='category',cascade='all, delete-orphan', passive_deletes=True)
     events = association_proxy('event_categories','event')
 
     @validates('name')
