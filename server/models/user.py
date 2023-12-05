@@ -10,6 +10,7 @@ class User(db.Model, SerializerMixin):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String, unique=True)
     _password_hash = db.Column(db.String)
+    created_at = db.Column(db.DateTime, server_default=db.func.now)
 
     @validates('name')
     def name_validation(self,key,name):
@@ -34,6 +35,13 @@ class User(db.Model, SerializerMixin):
         self._password_hash = bcrypt.hashpw(password,bcrypt.gensalt())
 
 
+
+# id: Integer (Primary Key)
+# username: String
+# password: String (hashed)
+# profile_picture: String (URL or file path)
+# user_bio: String
+# created_at: Timestamp
 
 #? Stretch Goals ?#
 # Profile picture #
