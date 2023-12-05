@@ -4,6 +4,8 @@ from datetime import datetime
 from setup import db
 
 class Event(db.Model, SerializerMixin):
+    __tablename__ = 'events'
+
     id = db.Column(db.Integer, primary_key=True)
     title = db.Column(db.String)
     description = db.Column(db.String)
