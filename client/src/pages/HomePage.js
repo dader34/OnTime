@@ -11,8 +11,8 @@ const HomePage = () => {
 
       <div className="row">
         <div className="col-md-6">
-          <div className="card mb-4 card-hover">
-            <div className="card-body">
+          <div className="card mb-4">
+            <div className="card-bod">
               <h2 className="card-title">Managing Events</h2>
               <p className="card-text">Create, edit, and manage your events. Keep track of all the details.</p>
             </div>
@@ -20,8 +20,8 @@ const HomePage = () => {
         </div>
 
         <div className="col-md-6">
-          <div className="card mb-4 card-hover">
-            <div className="card-body">
+          <div className="card mb-4">
+            <div className="card-bod">
               <h2 className="card-title">View User Profiles</h2>
               <p className="card-text">See profiles of attendees, speakers, and collaborators for your events.</p>
             </div>
@@ -31,8 +31,8 @@ const HomePage = () => {
 
       <div className="row">
         <div className="col-md-6">
-          <div className="card mb-4 card-hover">
-            <div className="card-body">
+          <div className="card mb-4">
+            <div className="card-bod">
               <h2 className="card-title">Event Recommendations</h2>
               <p className="card-text">Get event recommendations based on your preferences.</p>
             </div>
@@ -40,8 +40,8 @@ const HomePage = () => {
         </div>
 
         <div className="col-md-6">
-          <div className="card mb-4 card-hover">
-            <div className="card-body">
+          <div className="card mb-4">
+            <div className="card-bod">
               <h2 className="card-title">Attendee Management</h2>
               <p className="card-text">Keep track of attendees, and manage RSVPs for your events.</p>
             </div>
