@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import EventCard from '../components/EventCard';
+import SearchBar from '../components/SearchBar';
 // import '../styles/Events.css'
 
 const Events = ( ) => {
@@ -12,6 +13,8 @@ const Events = ( ) => {
     },[])
 
     return (
+        <>
+        <SearchBar />
         <div className="container mt-5">
           <div className="row">
             {events.map((event) => (
@@ -21,7 +24,9 @@ const Events = ( ) => {
             ))}
           </div>
         </div>
+        </>
       );
+      
 };
 
 export default Events;

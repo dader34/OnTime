@@ -1,7 +1,8 @@
 import App from "./App";
 import EventView from "./pages/EventView";
 import Events from "./pages/Events";
-import HomePage from "./pages/HomePage";
+import About from "./pages/About";
+import Home from "./pages/Home";
 // import HomePage from "./pages/HomePage";
 
 const routes = [
@@ -12,7 +13,12 @@ const routes = [
         children: [
         {
             path: "/",
-            element:<HomePage />
+            element:<Home />
+        },
+
+        {
+            path: "/about",
+            element:<About />
         },
         {
             path:'/events',

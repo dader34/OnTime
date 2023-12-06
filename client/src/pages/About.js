@@ -1,7 +1,7 @@
 import React from 'react';
 import '../styles/HomePage.css'; // Import the custom CSS file
 
-const HomePage = () => {
+const About = () => {
   return (
     <div className="container">
       <header className="text-center my-5">
@@ -59,4 +59,4 @@ const HomePage = () => {
   );
 };
 
-export default HomePage;
+export default About;
