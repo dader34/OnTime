@@ -28,8 +28,11 @@ if __name__ == "__main__":
         EventCategory.query.delete()
         Attendee.query.delete()
 
-        print("Seeding users...")
         users = []
+        events = []
+
+        print("Seeding users...")
+        
         for i in range(10):
             u = User(
                 name=fake.password(length=10),
@@ -56,9 +59,11 @@ if __name__ == "__main__":
                 location=fake.password(length=10),
                 organizer_id=rc(users).id,
             )
+            events.append(e)
 
             db.session.add(e)
             db.session.commit()
+
 
             # Generate attendees for the event
             for _ in range(5):
@@ -67,6 +72,13 @@ if __name__ == "__main__":
                     event_id=e.id
                 )
                 db.session.add(attendee)
+
+        print("Seeding EventCategories")
+        for i in range(15):
+            ec = EventCategory(category_id=rc(categories).id,event_id=rc(events).id)
+            db.session.add(ec)
+            db.session.commit()
+
 
         db.session.commit()
 
