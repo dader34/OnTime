@@ -1,0 +1,22 @@
+.card-hover {
+    transition: transform 0.3s ease, background-color 0.3s ease, color 0.3s ease;
+    
+}
+
+.card-body{
+    background-color: rgb(247, 249, 253);
+    border-color: rgb(222, 231, 249);
+    border-radius: 5px;
+    max-height: 300px;
+    min-height: 100px;
+}
+  
+.card-hover:hover {
+    transform: translateY(-5px);
+    background-color: #506bef;
+}
+
+.card-hover:hover:active {
+    transform: translateY(0);
+    transition: transform 0.3s cubic-bezier(0.68, -0.55, 0.27, 1.55), background-color 0.3s ease, color 0.3s ease;
+}
