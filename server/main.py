@@ -6,8 +6,9 @@ from models.event import Event
 from models.event_category import EventCategory
 from models.category import Category
 from models.attendee import Attendee
+from routes.events import ShowAllEvents
 
-
+api.add_resource(ShowAllEvents,'/events')
 
 if __name__ == '__main__':
     app.run(port=5555, debug=True)

@@ -13,8 +13,8 @@ class Attendee(db.Model, SerializerMixin):
     event_id = db.Column(db.Integer, db.ForeignKey('events.id'),nullable=False)
     created_at = db.Column(db.DateTime, server_default=db.func.now())
 
-    user = db.relationship('User',back_populates='attendees',cascade='all, delete-orphan', passive_deletes=True)
-    event = db.relationship('Event', back_populates='attendees',cascade='all, delete-orphan', passive_deletes=True)
+    user = db.relationship('User',back_populates='attendees',cascade='all, delete-orphan', passive_deletes=True,single_parent=True)
+    event = db.relationship('Event', back_populates='attendees',cascade='all, delete-orphan', passive_deletes=True,single_parent=True)
 
     @validates('user_id')
     def user_validation(self,key,id):
