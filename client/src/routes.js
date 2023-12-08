@@ -4,6 +4,7 @@ import Events from "./pages/Events";
 import About from "./pages/About";
 import Home from "./pages/Home";
 import ErrorPage from "./pages/ErrorPage";
+import AuthPage from "./pages/AuthPage";
 // import HomePage from "./pages/HomePage";
 
 const routes = [
@@ -31,6 +32,10 @@ const routes = [
         }
         ],
     },
+    {
+        path: "/login",
+        element: <AuthPage/>
+    }
     
 ];
 
