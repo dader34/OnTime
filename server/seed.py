@@ -45,7 +45,7 @@ if __name__ == "__main__":
         print("Seeding categories...")
         categories = []
         for i in range(5):
-            c = Category(name=fake.password(length=10))
+            c = Category(name=fake.text().replace(" ","")[:10])
             categories.append(c)
             db.session.add(c)
         db.session.commit()
@@ -54,7 +54,7 @@ if __name__ == "__main__":
         for i in range(15):
             e = Event(
                 title=fake.password(length=15),
-                description=fake.password(length=30),
+                description=fake.text()[:30],
                 date='2024-06-22 08:08:08',
                 location=fake.password(length=10),
                 organizer_id=rc(users).id,

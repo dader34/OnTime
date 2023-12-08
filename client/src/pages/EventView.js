@@ -14,9 +14,11 @@ const EventView = () => {
       .then(setEvent);
   }, [id]);
 
+  console.log(event)
+
     const categories = event.categories ? event.categories.map((cat) =>
-        <button className='btn btn-primary'>{cat.name}</button>
-    ) : {}
+        <span key={cat.name} className='btn btn-primary'>{cat.name}</span>
+    ) : undefined
 
   return (
     <div className="container mt-4">
@@ -41,7 +43,8 @@ const EventView = () => {
             <p>
               <strong>Description:</strong> {event.description}
             </p>
-            Categories: {categories}
+            {categories.length? "Categories:" : null}
+            {categories && categories}
             {/* Additional details as needed */}
           </div>
         </div>
