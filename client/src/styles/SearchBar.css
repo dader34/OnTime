@@ -1,0 +1,16 @@
+.badge.badge-primary.m-1{
+    color:white;
+    background: #212529;
+}
+
+.close.btn{
+    color:white;
+}
+
+.btn.ml-2{
+    border-right: 1px solid black;
+    border-top: 1px solid black;
+    border-bottom: 1px solid black;
+    /* padding-left:1px; */
+    border-radius: 0px;
+}

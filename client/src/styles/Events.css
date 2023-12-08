@@ -1,0 +1,29 @@
+/* Add this style to your global stylesheet or within the component */
+.custom-card {
+    margin-bottom: 1rem;
+  }
+  
+  /* If you are using a Bootstrap container, you can also add some additional styling */
+  .container {
+    width: 100%;
+    padding-right: 15px;
+    padding-left: 15px;
+    margin-right: auto;
+    margin-left: auto;
+  }
+  
+  /* If you want to keep some spacing between columns */
+  .row {
+    margin-right: -15px;
+    margin-left: -15px;
+  }
+  
+  .col {
+    padding-right: 15px;
+    padding-left: 15px;
+  }
+
+  .btn.btn-primary{
+    background-color: #212529;
+    color: white;
+  }

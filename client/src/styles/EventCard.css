@@ -1,54 +1,55 @@
-/* body{
-    overflow: hidden;
-} */
-
-.card{
-    transition: transform 0.3s ease, background-color 0.3s ease, color 0.3s ease, padding-bottom 5s ease;
-    /* position: relative; */
-}
-
-.card:hover {
+.card {
+    transition: transform 0.3s ease, background-color 0.3s ease, color 0.3s ease;
+  }
+  
+  .card:hover {
     transform: translateY(-5px);
-    background-color: #506bef;
-}
-
-.card:hover:active {
+    /* background-color: #506bef; */
+  }
+  
+  .card:hover:active {
     transform: translateY(0);
     transition: transform 0.3s cubic-bezier(0.68, -0.55, 0.27, 1.55), background-color 0.3s ease, color 0.3s ease;
-}
-
-.card-body:hover{
-    
-    padding-bottom:15%;
-    transition: padding-bottom 0.5s ease;
-}
-
+  }
   
-.button-container {
-    position: absolute;
-    /* top: 50%;
-    left: 50%; */
-    /* transform: translate(-150%, 300%); */
-    transform: translateX(-3%);
-    opacity: 0;
-    transition: opacity 0.3s ease-in-out;
-    align-items: center;
-    text-align: center;
-    width: 100%;
-}
-
-
-.card-body:hover .button-container {
-    
-    opacity: 1; 
-    transition: opacity 2s ease;;
-}
-
-.card-body{
+  .card-body {
+    padding: 5px;
     background-color: rgb(247, 249, 253);
     border-color: rgb(222, 231, 249);
     border-radius: 5px;
     max-height: 300px;
-    min-height: 100px;
-    transition: padding-bottom 0.5s ease;
-}
+    min-height: 110px;
+    overflow: hidden;
+  }
+  
+  .card-title,
+  .card-text {
+    transition: transform 0.3s ease;
+    /* padding-bottom: 10px; */
+  }
+  
+  .card-body:hover .card-title,
+  .card-body:hover .card-text {
+    transform: translateY(-15%);
+  }
+  
+  .button-container {
+    position: absolute;
+    bottom: -0;
+    left: 0;
+    right: 0;
+    opacity: 0;
+    transition: opacity 0.3s ease, transform 0.3s ease;
+    align-items: center;
+    text-align: center;
+  }
+
+  .button-container button{
+    width: 10%
+  }
+  
+  .card-body:hover .button-container {
+    opacity: 1;
+    transform: translateY(10px); /* Adjust as needed */
+  }
+  
