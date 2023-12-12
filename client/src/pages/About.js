@@ -51,8 +51,8 @@ const About = () => {
 
       {/* "Get Started" button */}
       <div className="text-center">
-        <button className="btn btn-primary" style={{ backgroundColor: '#4250e5' }}>
-          Get Started
+        <button className="rainbow btn btn-primary" style={{ backgroundColor: '#4250e5' }}>
+          <span>Get started</span>
         </button>
       </div>
     </div>

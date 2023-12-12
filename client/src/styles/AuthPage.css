@@ -1,0 +1,18 @@
+.auth-container {
+    height: 100vh; /* Set the container's height to fill the viewport vertically */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 20px; /* Add some padding to the container */
+  }
+  
+  .auth-form {
+    max-width: 400px; /* Adjust the maximum width of the form */
+    width: 100%; /* Make the form width 100% of its container */
+    padding: 20px; /* Add padding to the form */
+    border: 1px solid #ccc; /* Add a border for better visibility */
+    border-radius: 5px; /* Add border-radius for rounded corners */
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2); /* Add a subtle shadow */
+  }
+  

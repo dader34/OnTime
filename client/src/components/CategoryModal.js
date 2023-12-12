@@ -31,8 +31,8 @@ const CategoryModal = ({ showModal, toggleModal, selectedCategories, addCategory
                 <input
                   type="text"
                   className="form-control"
-                  placeholder="New Category"
-                  aria-label="New Category"
+                  placeholder="Category name"
+                  aria-label="Category name"
                   aria-describedby="add-category-button"
                   value={newCategory}
                   onChange={(e) => setNewCategory(e.target.value)}

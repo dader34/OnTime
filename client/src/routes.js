@@ -4,33 +4,44 @@ import Events from "./pages/Events";
 import About from "./pages/About";
 import Home from "./pages/Home";
 import ErrorPage from "./pages/ErrorPage";
+import AuthPage from "./pages/AuthPage";
+import CreateEvent from "./pages/CreateEvent";
+import { AuthProvider } from "./Context/AuthContext";
 // import HomePage from "./pages/HomePage";
 
 const routes = [
     {
         path: "/",
-        element: <App />,
+        element: <AuthProvider><App /></AuthProvider>,
         errorElement: <ErrorPage />,
         children: [
         {
             path: "/",
-            element:<Home />
+            element:<AuthProvider><Home /></AuthProvider>
         },
 
         {
             path: "/about",
-            element:<About />
+            element:<AuthProvider><About /></AuthProvider>
         },
         {
             path:'/events',
-            element:<Events />
+            element:<AuthProvider><Events /></AuthProvider>
         },
         {
             path:'/events/:id',
-            element: <EventView/>
+            element: <AuthProvider><EventView/></AuthProvider>
+        },
+        {
+            path:'/create',
+            element:<AuthProvider><CreateEvent/></AuthProvider>
         }
         ],
     },
+    {
+        path: "/login",
+        element: <AuthProvider><AuthPage/></AuthProvider>
+    }
     
 ];
 
