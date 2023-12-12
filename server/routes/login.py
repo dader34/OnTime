@@ -1,6 +1,5 @@
 import sys
 from sqlalchemy import func
-from datetime import timedelta
 from flask_jwt_extended import create_access_token, create_refresh_token, set_access_cookies, set_refresh_cookies
 sys.path.append('.')
 from setup import Resource, db, request, make_response
@@ -18,12 +17,12 @@ class Login(Resource):
                     access_token = create_access_token(identity=user.id)
                     refresh_token = create_refresh_token(identity=user.id)
 
-                    max_age = timedelta(days=1)
-                    max_age_seconds = int(max_age.total_seconds())
+                    # max_age = timedelta(days=1)
+                    # max_age_seconds = int(max_age.total_seconds())
 
                     response = make_response(user.to_dict(),200)
-                    set_access_cookies(response,access_token,max_age=max_age_seconds)
-                    set_refresh_cookies(response, refresh_token,max_age=max_age_seconds)
+                    set_access_cookies(response, access_token)
+                    set_refresh_cookies(response, refresh_token)
 
                     return response
                 else:

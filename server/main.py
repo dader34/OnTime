@@ -12,6 +12,9 @@ from routes.login import Login
 from routes.signup import Signup
 from routes.auth_test import Auth
 from routes.refresh import RefreshToken
+from routes.rsvp import Rsvp
+from routes.user_id import UserId
+from routes.logout import Logout
 
 
 api.add_resource(ShowAllEvents, '/events')
@@ -20,6 +23,9 @@ api.add_resource(Login, '/login')
 api.add_resource(Signup, '/signup')
 api.add_resource(Auth, '/auth')
 api.add_resource(RefreshToken, '/refresh')
+api.add_resource(Rsvp, '/rsvp')
+api.add_resource(UserId,'/user')
+api.add_resource(Logout, '/logout')
 
 if __name__ == '__main__':
     app.run(port=5555, debug=True)

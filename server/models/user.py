@@ -13,6 +13,7 @@ class User(db.Model, SerializerMixin):
     _password_hash = db.Column(db.String)
     created_at = db.Column(db.DateTime, server_default=db.func.now())
 
+    organized_events = db.relationship("Event",back_populates='organizer')
     attendees = db.relationship('Attendee',back_populates='user', cascade='all, delete-orphan', passive_deletes=True)
     events = association_proxy('attendees', 'event')
 
@@ -41,7 +42,7 @@ class User(db.Model, SerializerMixin):
     def authenticate(self,password):
         return bcrypt.checkpw(password.encode('utf-8'),self._password_hash)
     
-    serialize_rules = ('-_password_hash','-attendees')
+    serialize_only = ('id', 'name', 'organized_events.title', 'events.title')
 
 
 

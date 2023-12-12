@@ -8,7 +8,7 @@ const ErrorPage = () => {
       <div className="error-content">
         <h1 className="error-heading">Error 404</h1>
         <p className="error-message">Sorry! We couldnt find the page you were looking for</p>
-        <Link to="/" className="btn btn-primary">
+        <Link to="/" className="btn btn-primary error">
           Go Back
         </Link>
       </div>

@@ -1,6 +1,11 @@
+import React from 'react';
 import { Link } from 'react-router-dom';
+import '../styles/Home.css'
+import { useAuth } from '../Context/AuthContext';
 
 const Home = () => {
+    const {user} = useAuth()
+    console.log(user)
   return (
     <div>
       {/* Jumbotron */}
@@ -19,12 +24,25 @@ const Home = () => {
           <div className="col-md-6">
             <h2>Upcoming Events</h2>
             {/* Top 5 closest events to current time (grab from server) */}
-            list of upcoming events or other relevant content
+            {/* Add content here */}
           </div>
           <div className="col-md-6">
             <h2>Featured Categories</h2>
             {/* Most popular categories top 5 (grab from server) */}
-            list of featured categories or other relevant content
+            {/* Add content here */}
+          </div>
+        </div>
+      </div>
+
+      {/* Create Event Section */}
+      <div className="container mt-4">
+        <div className="row">
+          <div className="col-md-12">
+            <h2>Create an Event</h2>
+            <p>Create and share your own event with the community.</p>
+            <Link to="/create" className="rainbow btn btn-primary">
+              <span>Create Event</span>
+            </Link>
           </div>
         </div>
       </div>

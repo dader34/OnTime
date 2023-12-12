@@ -10,8 +10,8 @@ const router = createBrowserRouter(routes);
 root.render(
 
   <React.StrictMode>
-    <AuthProvider>
-      <RouterProvider router={router} />
-    </AuthProvider>
+      <RouterProvider router={router}>
+
+      </RouterProvider>
   </React.StrictMode>
 );

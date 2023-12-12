@@ -14,16 +14,15 @@ const AuthPage = () => {
 
   const handleAuth = (e) => {
     e.preventDefault();
-    // Implement your authentication logic here
     if (isLogin) {
-      login(name,password).then(logIn => logIn()).then(nav('/'))
+      login(name,password).then(authenticated => authenticated && nav('/'))
     } else {
       // Signup logic
       console.log('Signing up with:', name, password);
     }
   };
 
-  //have 2 formik/yup schemas to handle both signup and login and choose which one based oof of auth state?
+  //have 2 formik/yup schemas to handle both signup and login and choose which one based off of auth state?
 
   return (
     <div style={{ textAlign: 'center' }}>
