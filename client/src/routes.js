@@ -5,6 +5,7 @@ import About from "./pages/About";
 import Home from "./pages/Home";
 import ErrorPage from "./pages/ErrorPage";
 import AuthPage from "./pages/AuthPage";
+import CreateEvent from "./pages/CreateEvent";
 // import HomePage from "./pages/HomePage";
 
 const routes = [
@@ -29,6 +30,10 @@ const routes = [
         {
             path:'/events/:id',
             element: <EventView/>
+        },
+        {
+            path:'/create',
+            element: <CreateEvent/>
         }
         ],
     },

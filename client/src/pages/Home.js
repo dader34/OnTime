@@ -18,10 +18,12 @@ const Home = () => {
         <div className="row">
           <div className="col-md-6">
             <h2>Upcoming Events</h2>
+            {/* Top 5 closest events to current time (grab from server) */}
             list of upcoming events or other relevant content
           </div>
           <div className="col-md-6">
             <h2>Featured Categories</h2>
+            {/* Most popular categories top 5 (grab from server) */}
             list of featured categories or other relevant content
           </div>
         </div>

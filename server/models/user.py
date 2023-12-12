@@ -37,6 +37,11 @@ class User(db.Model, SerializerMixin):
     @password.setter
     def password(self,password):
         self._password_hash = bcrypt.hashpw(password.encode('utf-8'),bcrypt.gensalt())
+    
+    def authenticate(self,password):
+        return bcrypt.checkpw(password.encode('utf-8'),self._password_hash)
+    
+    serialize_rules = ('-_password_hash','-attendees')
 
 
 
