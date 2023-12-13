@@ -11,7 +11,7 @@ const Home = () => {
       {/* Jumbotron */}
       <div className="jumbotron">
         <div className="container">
-          <h1 className="display-4">OnTime Dashboard</h1>
+          <h1 className="display-4">Welcome{user && `, ${user.name}`}</h1>
           <p className="lead">
             Explore and discover exciting events in your community.
           </p>
