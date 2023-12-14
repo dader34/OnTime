@@ -15,6 +15,7 @@ from routes.refresh import RefreshToken
 from routes.rsvp import Rsvp
 from routes.user_id import UserId
 from routes.logout import Logout
+from routes.top_five import TopFive
 
 
 api.add_resource(ShowAllEvents, '/events')
@@ -26,6 +27,7 @@ api.add_resource(RefreshToken, '/refresh')
 api.add_resource(Rsvp, '/rsvp')
 api.add_resource(UserId,'/user')
 api.add_resource(Logout, '/logout')
+api.add_resource(TopFive, '/topfive')
 
 if __name__ == '__main__':
     app.run(port=5555, debug=True)

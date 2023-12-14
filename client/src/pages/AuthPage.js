@@ -8,22 +8,9 @@ import * as Yup from 'yup';
 
 const AuthPage = () => {
   const [isLogin, setIsLogin] = useState(true);
-  const [name, setName] = useState('');
-  const [password, setPassword] = useState('');
-  const [passwordConf, setPasswordConf] = useState('');
-  const { user, login, signUp } = useAuth();
+  const { login, signUp } = useAuth();
   const nav = useNavigate()
 
-  // console.log(user)
-
-
-  // onsubmit: if (isLogin) {
-  //   login(name,password).then(authenticated => authenticated && nav('/'))
-  // } else {
-  //   // Signup logic
-  //   signUp(name,password).then(authenticated => authenticated && nav('/'))
-  //   console.log('Signing up with:', name, password);
-  // }
 
   const handleFormikChange = (field,value,form) =>{
     form.setFieldValue(field,value)

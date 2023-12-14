@@ -14,20 +14,6 @@ export const AuthProvider = ({ children }) => {
     const nav = useNavigate()
     const location = useLocation()
 
-    //   const refreshToken = () => {
-    //     return fetch('http://127.0.0.1:5555/refresh', {
-    //       method: 'POST',
-    //       credentials: 'include', // to send the HttpOnly cookie
-    //     })
-    //     .then(resp => resp.json())
-    //     .then(data => {
-    //       if (data.access_token) {
-    //         // Set the new access token in the state, local storage, or where you manage your tokens
-    //       }
-    //     })
-    //     .catch(error => console.error("Refresh token error:", error));
-    //   };
-
     const getCookie = (name) => {
         const value = `; ${document.cookie}`;
         const parts = value.split(`; ${name}=`);
@@ -39,9 +25,8 @@ export const AuthProvider = ({ children }) => {
         alert(error)
     }
 
+    //Auth check + refresh
     useEffect(() => {
-        //Make fetch to backend user route
-        // Set user if jwt is valid and 
         fetch('/user', {
             credentials: 'include'
         }).then(res => {
@@ -62,17 +47,17 @@ export const AuthProvider = ({ children }) => {
                             // res.json().then(err => handleNewError(err['error'] || err.msg))
                         }
                     })
+                    .catch(e => console.log(e))
                 } else {
                     res.json().then(err => handleNewError(err['error'] || err.msg))
-                    toast.error("Refresh token has expired")
+                    // toast.error("Refresh token has expired")
                     nav('/login')
                 }
             }
-        })
-
-        // .then(resp => resp.json().then(data => resp.ok ? (()=>{setUser(data);return true})() : nav('/login')))
-        // .catch(() => {alert("An error has occured, please try again.");nav('/login')})
+        }).catch(e => console.log(e))
     }, [location.pathname, nav])
+
+    console.log(user)
 
 
     const login = (username, password) => {
@@ -99,7 +84,6 @@ export const AuthProvider = ({ children }) => {
             })
     };
 
-
     const signUp = (username, password) => {
         return fetch('/signup', {
           method: "POST",
@@ -112,15 +96,14 @@ export const AuthProvider = ({ children }) => {
         .then(resp => resp.json().then(data => {
           if (resp.ok) {
             setUser(data);
-            return data; // Resolve with data
+            return data; 
           } else {
-            // toast.error(data['error'] || 'Signup failed');
             return Promise.reject(new Error(data['error'] || 'Signup failed')); // Return a rejected promise
           }
         }))
         .catch(error => {
           toast.error(error.message || "An error has occurred, please try again.");
-          return Promise.reject(error); // Return the rejected promise
+          return Promise.reject(error);
         });
       };
       

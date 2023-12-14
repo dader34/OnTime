@@ -39,25 +39,25 @@ class Event(db.Model, SerializerMixin):
         else:
             raise ValueError('Description must be a str between 10 and 100 chars')
     
-    @validates('date')
-    def date_validation(self,key,date):
-        if date is not None and isinstance(date,str):
-            event_date = datetime.strptime(date, '%Y-%m-%d %H:%M:%S').date()
+    # @validates('date')
+    # def date_validation(self,key,date):
+    #     if date is not None and isinstance(date,str):
+    #         event_date = datetime.strptime(date, '%Y-%m-%d %H:%M:%S').date()
             
-            if event_date < datetime.today().date():
-                raise ValueError('Event date cannot be in the past.')
+    #         if event_date < datetime.today().date():
+    #             raise ValueError('Event date cannot be in the past.')
             
-            return date
+    #         return date
         
-        else:
-            raise ValueError('Date must be a str')
+    #     else:
+    #         raise ValueError('Date must be a str')
         
     @validates('location')
     def location_validation(self,key,location):
-        if location is not None and isinstance(location,str) and (5 <= len(location) <= 50):
+        if location is not None and isinstance(location,str) and (5 <= len(location) <= 100):
             return location
         else:
-            raise ValueError('Location must be a str between 5 and 50 chars')
+            raise ValueError('Location must be a str between 5 and 100 chars')
 
 
 # id: Integer (Primary Key)
