@@ -10,7 +10,11 @@ const DefaultZoom = 10;
 const CreateEvent = () => {
   const [zoom, setZoom] = useState(DefaultZoom);
 
-  
+  const getCookie = (name) => {
+    const value = `; ${document.cookie}`;
+    const parts = value.split(`; ${name}=`);
+    if (parts.length === 2) return parts.pop().split(';').shift();
+  }
 
   const formik = useFormik({
     initialValues: {
@@ -19,21 +23,34 @@ const CreateEvent = () => {
       imageUrl: '',
       date: '',
       categories: [],
-      location: `${DefaultLocation.lat},${DefaultLocation.lng}`,
+      location: DefaultLocation,
       categoryInput: ''
     },
     validationSchema: Yup.object({
-      title: Yup.string().min(5,"Title must be at least 5 characters").max(20,"Title can be 20 characters max").required('Title is required'),
-      description: Yup.string().min(10,"Description must be at least 10 characters").max(100,"Description can be 100 characters max").required('Description is required'),
+      title: Yup.string().min(5, "Title must be at least 5 characters").max(20, "Title can be 20 characters max").required('Title is required'),
+      description: Yup.string().min(10, "Description must be at least 10 characters").max(100, "Description can be 100 characters max").required('Description is required'),
       imageUrl: Yup.string().url('Invalid URL').required('Image URL is required'),
       date: Yup.string().required('Date and Time are required'),
     }),
     onSubmit: values => {
       const postData = {
-        ...values,
+        title: values.title,
+        description: values.description,
+        image_url: values.imageUrl,
+        date: values.date,
+        categories: values.categories,
         location: `${values.location.lat},${values.location.lng}`,
-        zoom: zoom,
       };
+      fetch('/events',{
+        method:"POST",
+        headers:{
+          'Content-Type':'application/json',
+          'X-CSRF-TOKEN' : getCookie('csrf_access_token')
+        },
+        body: JSON.stringify(postData),
+        credentials: 'include'
+      }).then(resp => resp.json())
+      .then(console.log)
       // toast.success("Event created successfully!");
     },
   });
@@ -44,7 +61,7 @@ const CreateEvent = () => {
   //           return title
   //       else:
   //           raise ValueError('Title must be a str between 5 and 20 chars')
-        
+
   //   @validates('description')
   //   def description_validation(self,key,description):
   //       if description is not None and isinstance(description,str) and (10 <= len(description) <= 100):
@@ -52,20 +69,20 @@ const CreateEvent = () => {
   //       else:
   //           raise ValueError('Description must be a str between 10 and 100 chars')
 
-  const handleSubmit = async(e) => {
+  const handleSubmit = async (e) => {
     console.log(formik.values)
     e.preventDefault();
     await formik.submitForm()
 
     const errors = await formik.validateForm();
-    
+
     const errorKeys = Object.keys(errors)
 
     if (Object.keys(errors).length > 0) {
       console.log(errors[errorKeys[0]])
       toast.error(errors[errorKeys[0]])
     }
-    
+
   };
 
   const handleChangeLocation = (lat, lng) => {
@@ -82,13 +99,27 @@ const CreateEvent = () => {
   };
 
   const handleAddCategory = () => {
-    if (formik.values.categoryInput && formik.values.categories.length < 5) {
-      const newCategories = [...formik.values.categories, formik.values.categoryInput];
-      formik.setFieldValue('categories', newCategories);
-      formik.setFieldValue('categoryInput', '');
+
+    if (!formik.values.categories.map(e => e.toLowerCase()).includes(formik.values.categoryInput.toLowerCase())) {
+      if (formik.values.categoryInput.match(/^[0-9a-z]+$/)) {
+        if(formik.values.categoryInput.length >= 3 && formik.values.categoryInput.length <= 15){
+          if (formik.values.categoryInput && formik.values.categories.length < 5) {
+            const newCategories = [...formik.values.categories, formik.values.categoryInput];
+            formik.setFieldValue('categories', newCategories);
+            formik.setFieldValue('categoryInput', '');
+          } else {
+            toast.error("Maximum of 5 categories allowed");
+          }
+        }else{
+          toast.error("Category name must be between 3 and 15 characters")
+        } 
+      } else {
+        toast.error("Alphanumeric characters only")
+      }
     } else {
-      toast.error("Maximum of 5 categories allowed");
+      toast.error("That category is already selected")
     }
+
   };
 
   const handleRemoveCategory = (index) => {
@@ -102,7 +133,7 @@ const CreateEvent = () => {
       <form onSubmit={handleSubmit}>
         <div className="mb-3">
           <label htmlFor="title" className="form-label">Title</label>
-          <input type="text" className="form-control" id="title" value={formik.values.title} onChange={formik.handleChange}  />
+          <input type="text" className="form-control" id="title" value={formik.values.title} onChange={formik.handleChange} />
         </div>
         <div className="mb-3">
           <label htmlFor="description" className="form-label">Description</label>
@@ -110,16 +141,16 @@ const CreateEvent = () => {
         </div>
         <div className="mb-3">
           <label htmlFor="imageUrl" className="form-label">Image URL</label>
-          <input className="form-control" id="imageUrl" value={formik.values.imageUrl} onChange={formik.handleChange}  />
+          <input className="form-control" id="imageUrl" value={formik.values.imageUrl} onChange={formik.handleChange} />
         </div>
         <div className="mb-3">
           <label htmlFor="date" className="form-label">Date and Time</label>
           <input type="datetime-local" className="form-control" id="date" value={formik.values.date} onChange={formik.handleChange} />
         </div>
         <div className="mb-3">
-          <label htmlFor="categories" className="form-label">Categories</label>
+          <label className="form-label">Categories</label>
           <div className="input-group">
-            <input type="text" className="form-control" id="categoryInput" value={formik.values.categoryInput} onChange={formik.handleChange} placeholder="Add a category" />
+            <input type="text" className="form-control" id="categoryInput" value={formik.values.categoryInput} onChange={e => formik.setFieldValue("categoryInput",e.target.value.toLowerCase())} placeholder="Add a category" />
             <button type="button" className="btn btn-outline-secondary" onClick={handleAddCategory} disabled={formik.values.categories.length >= 5}>+</button>
           </div>
           <div>
@@ -140,13 +171,13 @@ const CreateEvent = () => {
               style={{ height: '500px' }}
               onChangeLocation={handleChangeLocation}
               onChangeZoom={handleChangeZoom}
-              apiKey='AIzaSyA9f3qBwiomORS2T1H-0L5lPX3LcqDureU' // Replace with your API Key
+              apiKey='AIzaSyA9f3qBwiomORS2T1H-0L5lPX3LcqDureU'
             />
           </div>
           <div className="mt-3 row">
             <div className="col">
               <label>Reset:</label>
-              <br/>
+              <br />
               <button className="btn btn-secondary" onClick={handleResetLocation}>Reset Location</button>
             </div>
             <div className="col">

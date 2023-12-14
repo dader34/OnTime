@@ -27,3 +27,7 @@
     background-color: #212529;
     color: white;
   }
+  .card-img-top{
+    min-width: 250px;
+    min-height: 250px;
+  }

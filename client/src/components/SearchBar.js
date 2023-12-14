@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import CategoryModal from "./CategoryModal";
+import toast from 'react-hot-toast'
 import "../styles/SearchBar.css";
 
 const SearchBar = ({ setEvents }) => {
@@ -11,11 +12,16 @@ const SearchBar = ({ setEvents }) => {
 
   const addCategory = (category) => {
     if (!selectedCategories.includes(category)) {
-      if (selectedCategories.length < 5) {
-        setSelectedCategories([...selectedCategories, category]);
-      } else {
-        alert("You can only choose 5 filters at a time");
-      }
+        if(category.match(/^[0-9a-z]+$/)){
+            if (selectedCategories.length < 5) {
+                setSelectedCategories([...selectedCategories, category]);
+              } else {
+                alert("You can only choose 5 filters at a time");
+              }
+        }else{
+            toast.error("Only alphanumeric characters")
+        }
+      
     }
   };
 

@@ -18,7 +18,6 @@ class EventCategory(db.Model, SerializerMixin):
 
     @validates('event_id')
     def event_id_validation(self,key,e_id):
-        import ipdb; ipdb.set_trace()
         print(e_id)
         if (e_id is not None) and isinstance(e_id,int) and (db.session.get(Event,e_id)):
             return e_id

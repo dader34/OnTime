@@ -8,6 +8,7 @@ const EventView = () => {
   const [attending, setAttending] = useState(false)
   const { id } = useParams();
   const {user} = useAuth()
+  const [owner,setOwner] = useState(false)
 
   const getCookie = (name) => {
     const value = `; ${document.cookie}`;
@@ -26,6 +27,13 @@ const EventView = () => {
             setAttending(true)
         }
         console.log(ids)
+    }
+
+    if(user && user.organized_events){
+        const ids = user.organized_events.map(e => e.id)
+        if(ids.includes(parseInt(id))){
+            setOwner(true)
+        }
     }
   }, [id,user]);
 
@@ -51,6 +59,7 @@ const EventView = () => {
   const categories = event.categories ? event.categories.map((cat) =>
     <span key={cat.name} className='btn btn-primary'>{cat.name}</span>
   ) : undefined
+
 
   return (
     <div className="container mt-4">
@@ -80,6 +89,7 @@ const EventView = () => {
               <strong>Attendees:</strong> {event.users ? event.users.length : 0}
             </p>
             <button className="btn btn-success" style={{background: attending? 'red' : '#0d6efd'}} onClick={handleRSVP}>{!attending? 'I\'m in!' : "Withdraw"}</button>
+            {owner && <button className='btn btn-danger'>Delete Post</button>}
           </div>
         </div>
       </div>
