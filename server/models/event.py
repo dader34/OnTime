@@ -17,7 +17,7 @@ class Event(db.Model, SerializerMixin):
     created_at = db.Column(db.DateTime, server_default=db.func.now())
 
     organizer = db.relationship("User",back_populates='organized_events')
-    event_categories = db.relationship('EventCategory',back_populates='event')
+    event_categories = db.relationship('EventCategory',back_populates='event',cascade='all, delete-orphan', passive_deletes=True,single_parent=True)
     categories = association_proxy('event_categories','category')
     attendees = db.relationship('Attendee',back_populates='event',cascade='all, delete-orphan', passive_deletes=True)
     users = association_proxy('attendees','user')

@@ -59,6 +59,8 @@ class Events(Resource):
                             db.session.add(c)
                             db.session.commit()
                             ec = EventCategory(event_id=event.id,category_id=c.id)
+                            db.session.add(ec)
+                            db.session.commit()
                     # event = Event(title=title,description=description,image_url=image_url,date=date,location=location)
 
                     return {'success':event.id}

@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import '../styles/EventView.css';
 import { useAuth } from '../Context/AuthContext';
+import toast from 'react-hot-toast'
 
 const EventView = () => {
   const [event, setEvent] = useState({});
@@ -9,6 +10,7 @@ const EventView = () => {
   const { id } = useParams();
   const {user} = useAuth()
   const [owner,setOwner] = useState(false)
+  const nav = useNavigate()
 
   const getCookie = (name) => {
     const value = `; ${document.cookie}`;
@@ -54,6 +56,21 @@ const EventView = () => {
     console.log('RSVP clicked');
   };
 
+  const handleDelete = () =>{
+    fetch(`/events/${id}`,{
+        method:"DELETE",
+        headers:{
+            'X-CSRF-TOKEN': getCookie('csrf_access_token')
+        },
+    }).then(resp =>{
+        if(resp.ok){
+            nav('/')
+        }else{
+            resp.json().then(err => toast.error(err.error || err.msg))
+        }
+    }).catch(e => toast.error(e.message || e.msg))
+  }
+
   console.log(event)
 
   const categories = event.categories ? event.categories.map((cat) =>
@@ -88,8 +105,8 @@ const EventView = () => {
             <p>
               <strong>Attendees:</strong> {event.users ? event.users.length : 0}
             </p>
-            <button className="btn btn-success" style={{background: attending? 'red' : '#0d6efd'}} onClick={handleRSVP}>{!attending? 'I\'m in!' : "Withdraw"}</button>
-            {owner && <button className='btn btn-danger'>Delete Post</button>}
+            
+            {owner ? <button className='btn btn-danger' onClick={handleDelete}>Delete Post</button> : <button className="btn btn-success" style={{background: attending? 'red' : '#0d6efd'}} onClick={handleRSVP}>{!attending? 'I\'m in!' : "Withdraw"}</button>}
           </div>
         </div>
       </div>

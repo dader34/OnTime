@@ -27,6 +27,7 @@ api.add_resource(RefreshToken, '/refresh')
 api.add_resource(Rsvp, '/rsvp')
 api.add_resource(UserId,'/user')
 api.add_resource(Logout, '/logout')
+api.add_resource(TopFive, '/topfive')
 
 if __name__ == '__main__':
     app.run(port=5555, debug=True)

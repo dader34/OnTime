@@ -4,6 +4,7 @@ import EventCard from '../components/EventCard'; // Import your EventCard compon
 
 const MyEvents = () => {
   const [activeTab, setActiveTab] = useState('myEvents');
+    //! Have to switch to state and fetching user for most accurate info instead of using auth ctx   
   const {user} = useAuth()
 
   const myEvents = user ? user.events : []

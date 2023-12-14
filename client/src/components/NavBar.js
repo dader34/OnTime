@@ -17,6 +17,9 @@ const NavBar = () => {
               <Link className="nav-link" href="#">Home</Link>
             </li>
             <li className="nav-item">
+              <Link className="nav-link" to="/profile">My Events</Link>
+            </li>
+            <li className="nav-item">
               <Link className="nav-link" to='/about'>About</Link>
             </li>
             <li className="nav-item">

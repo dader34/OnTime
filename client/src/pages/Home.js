@@ -32,7 +32,19 @@ const Home = () => {
           </p>
         </div>
       </div>
-      
+
+      {/* Create Event Section - Moved up */}
+      <div className="container mt-4">
+        <div className="row">
+          <div className="col-md-12">
+            <h2>Create an Event</h2>
+            <p>Create and share your own event with the community.</p>
+            <Link to="/create" className="rainbow btn btn-primary">
+              <span>Create Event</span>
+            </Link>
+          </div>
+        </div>
+      </div>
 
       {/* Main Content */}
       <div className="container mt-4">
@@ -44,19 +56,6 @@ const Home = () => {
           <div className="col-md-4">
             <h2>Featured Categories</h2>
             {/* Content for Featured Categories */}
-          </div>
-        </div>
-      </div>
-
-      {/* Create Event Section */}
-      <div className="container mt-4">
-        <div className="row">
-          <div className="col-md-12">
-            <h2>Create an Event</h2>
-            <p>Create and share your own event with the community.</p>
-            <Link to="/create" className="rainbow btn btn-primary">
-              <span>Create Event</span>
-            </Link>
           </div>
         </div>
       </div>

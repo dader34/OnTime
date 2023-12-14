@@ -3,12 +3,14 @@ import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import toast from 'react-hot-toast';
 import MapPicker from 'react-google-map-picker';
+import { useNavigate } from 'react-router-dom';
 
 const DefaultLocation = { lat: 40.705476946658344, lng: -74.01381364332214 };
 const DefaultZoom = 10;
 
 const CreateEvent = () => {
   const [zoom, setZoom] = useState(DefaultZoom);
+  const nav = useNavigate()
 
   const getCookie = (name) => {
     const value = `; ${document.cookie}`;
@@ -49,25 +51,15 @@ const CreateEvent = () => {
         },
         body: JSON.stringify(postData),
         credentials: 'include'
-      }).then(resp => resp.json())
-      .then(console.log)
-      // toast.success("Event created successfully!");
+      }).then(resp => {
+        if(resp.ok){
+          resp.json().then(data => nav(`/events/${data['success']}`))
+        }else{
+          resp.json().then(err => toast.error(err.error || err.msg))
+        }
+      }).catch(e => toast.error(e.message || e.msg))
     },
   });
-
-  // @validates('title')
-  //   def title_validation(self,key,title):
-  //       if title is not None and isinstance(title,str) and (5 <= len(title) <= 20):
-  //           return title
-  //       else:
-  //           raise ValueError('Title must be a str between 5 and 20 chars')
-
-  //   @validates('description')
-  //   def description_validation(self,key,description):
-  //       if description is not None and isinstance(description,str) and (10 <= len(description) <= 100):
-  //           return description
-  //       else:
-  //           raise ValueError('Description must be a str between 10 and 100 chars')
 
   const handleSubmit = async (e) => {
     console.log(formik.values)
