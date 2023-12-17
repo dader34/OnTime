@@ -9,11 +9,11 @@ class Attendee(db.Model, SerializerMixin):
     __tablename__ = 'attendees'
 
     id = db.Column(db.Integer, primary_key=True)
-    user_id = db.Column(db.Integer, db.ForeignKey('users.id'),nullable=False)
-    event_id = db.Column(db.Integer, db.ForeignKey('events.id'),nullable=False)
+    user_id = db.Column(db.Integer, db.ForeignKey('users.id',ondelete="CASCADE"),nullable=False)
+    event_id = db.Column(db.Integer, db.ForeignKey('events.id',ondelete="CASCADE"),nullable=False)
     created_at = db.Column(db.DateTime, server_default=db.func.now())
 
-    user = db.relationship('User',back_populates='attendees',cascade='all, delete-orphan', passive_deletes=True,single_parent=True)
+    user = db.relationship('User',back_populates='attendees')
     event = db.relationship('Event', back_populates='attendees')
 
     @validates('user_id')

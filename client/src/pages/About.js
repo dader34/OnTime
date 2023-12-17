@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 
 const About = () => {
   return (
-    <div className="container">
+    <div className="about-container">
       <header className="text-center my-5">
         <h1>Welcome to OnTime</h1>
         <p className="lead">Your Event Management App</p>

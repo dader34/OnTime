@@ -2,7 +2,21 @@
   text-align: center;
 }
 
+/* html{
+  height: 100%;
+} */
 
+body{
+  height: 100%;
+}
+
+div.root{
+  height: 100%;
+}
+
+div.outlet{
+  min-height: 100%;
+}
 
 footer{
   /* position: fixed; */

@@ -12,14 +12,14 @@ class Event(db.Model, SerializerMixin):
     description = db.Column(db.String,nullable=False)
     location = db.Column(db.String,nullable=False)
     date = db.Column(db.String,nullable=False)
-    organizer_id = db.Column(db.Integer, db.ForeignKey('users.id'),nullable=False)
+    organizer_id = db.Column(db.Integer, db.ForeignKey('users.id',ondelete='CASCADE'),nullable=False)
     image_url = db.Column(db.String,default='https://images.pexels.com/photos/860227/pexels-photo-860227.jpeg?auto=compress&cs=tinysrgb&w=150 150w, https://images.pexels.com/photos/860227/pexels-photo-860227.jpeg?auto=compress&cs=tinysrgb&w=300 300w, https://images.pexels.com/photos/860227/pexels-photo-860227.jpeg?auto=compress&cs=tinysrgb&w=400 400w, https://images.pexels.com/photos/860227/pexels-photo-860227.jpeg?auto=compress&cs=tinysrgb&w=600 600w, https://images.pexels.com/photos/860227/pexels-photo-860227.jpeg?auto=compress&cs=tinysrgb&w=800 800w, https://images.pexels.com/photos/860227/pexels-photo-860227.jpeg?auto=compress&cs=tinysrgb&w=1200 1200w, https://images.pexels.com/photos/860227/pexels-photo-860227.jpeg?auto=compress&cs=tinysrgb&w=1600 1600w')
     created_at = db.Column(db.DateTime, server_default=db.func.now())
 
     organizer = db.relationship("User",back_populates='organized_events')
-    event_categories = db.relationship('EventCategory',back_populates='event',cascade='all, delete-orphan', passive_deletes=True,single_parent=True)
+    event_categories = db.relationship('EventCategory',back_populates='event',cascade='all, delete-orphan')
     categories = association_proxy('event_categories','category')
-    attendees = db.relationship('Attendee',back_populates='event',cascade='all, delete-orphan', passive_deletes=True)
+    attendees = db.relationship('Attendee',back_populates='event', cascade='all, delete-orphan')
     users = association_proxy('attendees','user')
 
     serialize_only = ('id', 'title', 'description', 'location', 'date', 'image_url', 'created_at', 'categories.name','organizer_id')

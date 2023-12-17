@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useAuth } from '../Context/AuthContext';
 import EventCard from '../components/EventCard'; // Import your EventCard component
+import '../styles/MyEvents.css'
 
 const MyEvents = () => {
   const [activeTab, setActiveTab] = useState('myEvents');

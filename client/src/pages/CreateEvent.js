@@ -1,22 +1,18 @@
-import React, { useState } from 'react';
+import React, { useState,useMemo } from 'react';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import toast from 'react-hot-toast';
-import MapPicker from 'react-google-map-picker';
+import GoogleMapPicker from '../components/GoogleMapPicker';
 import { useNavigate } from 'react-router-dom';
+import { useAuth } from '../Context/AuthContext';
 
 const DefaultLocation = { lat: 40.705476946658344, lng: -74.01381364332214 };
 const DefaultZoom = 10;
 
-const CreateEvent = () => {
+const CreateEvent = ({ event }) => {
   const [zoom, setZoom] = useState(DefaultZoom);
+  const {getCookie} = useAuth()
   const nav = useNavigate()
-
-  const getCookie = (name) => {
-    const value = `; ${document.cookie}`;
-    const parts = value.split(`; ${name}=`);
-    if (parts.length === 2) return parts.pop().split(';').shift();
-  }
 
   const formik = useFormik({
     initialValues: {
@@ -43,23 +39,35 @@ const CreateEvent = () => {
         categories: values.categories,
         location: `${values.location.lat},${values.location.lng}`,
       };
-      fetch('/events',{
-        method:"POST",
-        headers:{
-          'Content-Type':'application/json',
-          'X-CSRF-TOKEN' : getCookie('csrf_access_token')
+      fetch('/events', {
+        method: "POST",
+        headers: {
+          'Content-Type': 'application/json',
+          'X-CSRF-TOKEN': getCookie('csrf_access_token')
         },
         body: JSON.stringify(postData),
         credentials: 'include'
       }).then(resp => {
-        if(resp.ok){
+        if (resp.ok) {
           resp.json().then(data => nav(`/events/${data['success']}`))
-        }else{
+        } else {
           resp.json().then(err => toast.error(err.error || err.msg))
         }
       }).catch(e => toast.error(e.message || e.msg))
     },
   });
+
+  const memoizedMapPicker = useMemo(() => {
+    return (
+      <GoogleMapPicker
+        defaultLocation={formik.values.location}
+        zoom={zoom}
+        onChangeLocation={(lat, lng) => {
+          formik.setFieldValue('location', { lat, lng });
+        }}
+      />
+    );
+  }, [formik.values.location, zoom]);
 
   const handleSubmit = async (e) => {
     console.log(formik.values)
@@ -77,14 +85,6 @@ const CreateEvent = () => {
 
   };
 
-  const handleChangeLocation = (lat, lng) => {
-    formik.setFieldValue('location', { lat, lng });
-  };
-
-  const handleChangeZoom = newZoom => {
-    setZoom(newZoom);
-  };
-
   const handleResetLocation = () => {
     formik.setFieldValue('location', { ...DefaultLocation });
     setZoom(DefaultZoom);
@@ -94,7 +94,7 @@ const CreateEvent = () => {
 
     if (!formik.values.categories.map(e => e.toLowerCase()).includes(formik.values.categoryInput.toLowerCase())) {
       if (formik.values.categoryInput.match(/^[0-9a-z]+$/)) {
-        if(formik.values.categoryInput.length >= 3 && formik.values.categoryInput.length <= 15){
+        if (formik.values.categoryInput.length >= 3 && formik.values.categoryInput.length <= 15) {
           if (formik.values.categoryInput && formik.values.categories.length < 5) {
             const newCategories = [...formik.values.categories, formik.values.categoryInput];
             formik.setFieldValue('categories', newCategories);
@@ -102,9 +102,9 @@ const CreateEvent = () => {
           } else {
             toast.error("Maximum of 5 categories allowed");
           }
-        }else{
+        } else {
           toast.error("Category name must be between 3 and 15 characters")
-        } 
+        }
       } else {
         toast.error("Alphanumeric characters only")
       }
@@ -142,7 +142,7 @@ const CreateEvent = () => {
         <div className="mb-3">
           <label className="form-label">Categories</label>
           <div className="input-group">
-            <input type="text" className="form-control" id="categoryInput" value={formik.values.categoryInput} onChange={e => formik.setFieldValue("categoryInput",e.target.value.toLowerCase())} placeholder="Add a category" />
+            <input type="text" className="form-control" id="categoryInput" value={formik.values.categoryInput} onChange={e => formik.setFieldValue("categoryInput", e.target.value.toLowerCase())} placeholder="Add a category" />
             <button type="button" className="btn btn-outline-secondary" onClick={handleAddCategory} disabled={formik.values.categories.length >= 5}>+</button>
           </div>
           <div>
@@ -156,15 +156,7 @@ const CreateEvent = () => {
         </div>
         <div id="mapsContainer">
           <div className="mt-4">
-            <MapPicker
-              defaultLocation={formik.values.location}
-              zoom={zoom}
-              mapTypeId="roadmap"
-              style={{ height: '500px' }}
-              onChangeLocation={handleChangeLocation}
-              onChangeZoom={handleChangeZoom}
-              apiKey='AIzaSyA9f3qBwiomORS2T1H-0L5lPX3LcqDureU'
-            />
+          {memoizedMapPicker}
           </div>
           <div className="mt-3 row">
             <div className="col">

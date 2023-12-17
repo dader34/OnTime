@@ -9,9 +9,9 @@ class EventCategory(db.Model, SerializerMixin):
 
     id = db.Column(db.Integer, primary_key=True)
     event_id = db.Column(db.Integer, db.ForeignKey('events.id',ondelete='CASCADE'),nullable=False)
-    category_id = db.Column(db.Integer, db.ForeignKey('categories.id'),nullable=False)
-    event = db.relationship('Event', back_populates='event_categories',cascade='all, delete-orphan', passive_deletes=True,single_parent=True)
-    category = db.relationship('Category',back_populates='event_categories',cascade='all, delete-orphan', passive_deletes=True,single_parent=True)
+    category_id = db.Column(db.Integer, db.ForeignKey('categories.id',ondelete="CASCADE"),nullable=False)
+    event = db.relationship('Event', back_populates='event_categories')
+    category = db.relationship('Category',back_populates='event_categories')
 
     #cascading deletes from attendees deletion tries to delete eventCategory?
 

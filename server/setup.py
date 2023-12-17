@@ -25,6 +25,7 @@ app.config['CACHE_TYPE'] = 'SimpleCache'
 # app.config['JWT_COOKIE_CSRF_PROTECT'] = True
 # app.config['JWT_CSRF_HEADER_NAME'] = ''
 # app.config['CSRF_TOKEN_REQUIRED'] = False
+app.config['SQLALCHEMY_ECHO'] = True
 app.config['JWT_SECRET_KEY'] = os.environ.get("KEY")
 app.config['JWT_ACCESS_TOKEN_EXPIRES'] = timedelta(hours=1)
 app.config['JWT_REFRESH_TOKEN_EXPIRES'] = timedelta(days=30)
@@ -38,7 +39,7 @@ cache = Cache(app)
 limiter = Limiter(
     app=app,
     key_func=get_remote_address,  # Function to generate a unique key for each visitor
-    default_limits=["2000 per day", "200 per hour"]  # Default rate limits
+    default_limits=["2000 per day", "2000 per hour"]  # Default rate limits
 )
 
 start_time = datetime.now()

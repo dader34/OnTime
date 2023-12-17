@@ -13,6 +13,7 @@ export const AuthProvider = ({ children }) => {
     const [user, setUser] = useState(null);
     const nav = useNavigate()
     const location = useLocation()
+    const apiKey = process.env.REACT_APP_API_KEY
 
     const getCookie = (name) => {
         const value = `; ${document.cookie}`;
@@ -21,9 +22,7 @@ export const AuthProvider = ({ children }) => {
         return ''
     }
 
-    const handleNewError = (error) => {
-        alert(error)
-    }
+
 
     //Auth check + refresh
     useEffect(() => {
@@ -49,15 +48,13 @@ export const AuthProvider = ({ children }) => {
                     })
                     .catch(e => console.log(e))
                 } else {
-                    res.json().then(err => handleNewError(err['error'] || err.msg))
+                    // res.json().then(err => toast.error(err['error'] || err.msg))
                     // toast.error("Refresh token has expired")
                     nav('/login')
                 }
             }
         }).catch(e => console.log(e))
     }, [location.pathname, nav])
-
-    console.log(user)
 
 
     const login = (username, password) => {
@@ -72,7 +69,7 @@ export const AuthProvider = ({ children }) => {
             .then(resp => resp.json().then(data => {
                 if (resp.ok) {
                     setUser(data);
-                    return data; // Resolve with data
+                    return data; 
                 } else {
                     return Promise.reject(new Error(data['error'] || 'An error occurred')); // Return a rejected promise
                 }
@@ -115,7 +112,7 @@ export const AuthProvider = ({ children }) => {
     };
 
     return (
-        <AuthContext.Provider value={{ user, login, logout, signUp }}>
+        <AuthContext.Provider value={{ user, login, logout, signUp, getCookie, apiKey }}>
             {children}
         </AuthContext.Provider>
     );

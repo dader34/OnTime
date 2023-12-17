@@ -8,6 +8,7 @@ import AuthPage from "./pages/AuthPage";
 import CreateEvent from "./pages/CreateEvent";
 import { AuthProvider } from "./Context/AuthContext";
 import MyEvents from "./pages/MyEvents";
+import EditEvent from "./pages/EditEvent";
 // import HomePage from "./pages/HomePage";
 
 
@@ -42,6 +43,9 @@ const routes = [
         {
             path: '/profile',
             element: <AuthProvider><MyEvents/></AuthProvider>
+        },{
+            path: '/edit/:id',
+            element: <AuthProvider><EditEvent/></AuthProvider>
         }
         ],
     },

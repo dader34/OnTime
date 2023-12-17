@@ -41,7 +41,7 @@ class Events(Resource):
         date = request.json.get('date')
         categories = request.json.get('categories')
         location = request.json.get('location')
-        if title and description and image_url and date and categories and location:
+        if title and description and image_url and date and location:
             if (user := db.session.get(User, get_jwt_identity())):
                 try:
 
@@ -72,3 +72,4 @@ class Events(Resource):
                 return {'error':'That user no longer exists'}
         else:
             return {'error':'Invalid parameters'},400
+    

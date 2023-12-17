@@ -20,3 +20,14 @@
     transition: transform 0.3s cubic-bezier(0.68, -0.55, 0.27, 1.55), background-color 0.3s ease, color 0.3s ease;
 }
 
+.about-container{
+    height: 100%;
+}
+
+div#root{
+    height: 100%;
+}
+
+div.App{
+    height: 100%;
+}
