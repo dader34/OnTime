@@ -1,9 +1,10 @@
 import React from 'react';
 import '../styles/About.css';
+import { Link } from 'react-router-dom';
 
 const About = () => {
   return (
-    <div className="container">
+    <div className="about-container">
       <header className="text-center my-5">
         <h1>Welcome to OnTime</h1>
         <p className="lead">Your Event Management App</p>
@@ -51,9 +52,9 @@ const About = () => {
 
       {/* "Get Started" button */}
       <div className="text-center">
-        <button className="rainbow btn btn-primary" style={{ backgroundColor: '#4250e5' }}>
+        <Link to='/' className="rainbow btn btn-primary" style={{ backgroundColor: '#4250e5' }}>
           <span>Get started</span>
-        </button>
+        </Link>
       </div>
     </div>
   );

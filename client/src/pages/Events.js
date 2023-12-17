@@ -9,10 +9,8 @@ const Events = () => {
     useEffect(() => {
       fetch('/events')
         .then((resp) => resp.json())
-        .then(setEvents);
+        .then(data => setEvents(data.reverse()));
     }, []);
-
-    console.log(events)
   
     return (
       <>

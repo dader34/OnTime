@@ -2,6 +2,7 @@
 
 # Standard library imports
 from random import choice as rc
+import random
 
 # Remote library imports
 from faker import Faker
@@ -56,7 +57,7 @@ if __name__ == "__main__":
                 title=fake.password(length=15),
                 description=fake.text()[:30],
                 date='2024-06-22 08:08:08',
-                location=fake.password(length=10),
+                location=f'{random.uniform(10.5, 75.5)},{random.uniform(10.5, 75.5)}',
                 organizer_id=rc(users).id,
             )
             events.append(e)

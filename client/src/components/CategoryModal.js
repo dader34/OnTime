@@ -55,7 +55,6 @@ const CategoryModal = ({ showModal, toggleModal, selectedCategories, addCategory
                 </div>
                 
               </div>
-              {/* {selectedCategories.length && "Selected Categories:\n"} */}
               {selectedCategories.map((category) => (
                 <span key={category} className="badge badge-primary m-1">
                   {category}
@@ -70,23 +69,6 @@ const CategoryModal = ({ showModal, toggleModal, selectedCategories, addCategory
               ))}
             </div>
           </div>
-          {/* <div className="modal-footer">
-            <button
-              type="button"
-              className="btn btn-secondary"
-              data-bs-dismiss="modal"
-              onClick={toggleModal}
-            >
-              Close
-            </button>
-            <button
-              type="button"
-              className="btn btn-primary"
-              onClick={toggleModal}
-            >
-              Save Changes
-            </button>
-          </div> */}
         </div>
       </div>
     </div>

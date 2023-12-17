@@ -7,8 +7,12 @@ import ErrorPage from "./pages/ErrorPage";
 import AuthPage from "./pages/AuthPage";
 import CreateEvent from "./pages/CreateEvent";
 import { AuthProvider } from "./Context/AuthContext";
+import MyEvents from "./pages/MyEvents";
+import EditEvent from "./pages/EditEvent";
 // import HomePage from "./pages/HomePage";
 
+
+//Im wrapping all of my routes so i can redirect from auth context, probably not the best way to do it, but it makes for a great user experience
 const routes = [
     {
         path: "/",
@@ -35,6 +39,13 @@ const routes = [
         {
             path:'/create',
             element:<AuthProvider><CreateEvent/></AuthProvider>
+        },
+        {
+            path: '/profile',
+            element: <AuthProvider><MyEvents/></AuthProvider>
+        },{
+            path: '/edit/:id',
+            element: <AuthProvider><EditEvent/></AuthProvider>
         }
         ],
     },

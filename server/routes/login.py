@@ -1,5 +1,6 @@
 import sys
 from sqlalchemy import func
+from datetime import timedelta
 from flask_jwt_extended import create_access_token, create_refresh_token, set_access_cookies, set_refresh_cookies
 sys.path.append('.')
 from setup import Resource, db, request, make_response
@@ -14,8 +15,8 @@ class Login(Resource):
             user = User.query.filter(func.lower(User.name) == func.lower(username)).first()
             if user:
                 if user.authenticate(password):
-                    access_token = create_access_token(identity=user.id)
-                    refresh_token = create_refresh_token(identity=user.id)
+                    access_token = create_access_token(identity=user.id,expires_delta=timedelta(hours=1))
+                    refresh_token = create_refresh_token(identity=user.id,expires_delta=timedelta(days=30))
 
                     # max_age = timedelta(days=1)
                     # max_age_seconds = int(max_age.total_seconds())

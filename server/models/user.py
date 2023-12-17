@@ -13,8 +13,8 @@ class User(db.Model, SerializerMixin):
     _password_hash = db.Column(db.String)
     created_at = db.Column(db.DateTime, server_default=db.func.now())
 
-    organized_events = db.relationship("Event",back_populates='organizer')
-    attendees = db.relationship('Attendee',back_populates='user', cascade='all, delete-orphan', passive_deletes=True)
+    organized_events = db.relationship("Event",back_populates='organizer',cascade="all, delete-orphan")
+    attendees = db.relationship('Attendee',back_populates='user', cascade='all, delete-orphan')
     events = association_proxy('attendees', 'event')
 
     @validates('name')

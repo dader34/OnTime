@@ -8,17 +8,15 @@ class EventCategory(db.Model, SerializerMixin):
     __tablename__ = 'event_categories'
 
     id = db.Column(db.Integer, primary_key=True)
-    event_id = db.Column(db.Integer, db.ForeignKey('events.id'),nullable=False)
-    category_id = db.Column(db.Integer, db.ForeignKey('categories.id'),nullable=False)
-
-    event = db.relationship('Event', back_populates='event_categories',cascade='all, delete-orphan', passive_deletes=True,single_parent=True)
-    category = db.relationship('Category',back_populates='event_categories',cascade='all, delete-orphan', passive_deletes=True,single_parent=True)
+    event_id = db.Column(db.Integer, db.ForeignKey('events.id',ondelete='CASCADE'),nullable=False)
+    category_id = db.Column(db.Integer, db.ForeignKey('categories.id',ondelete="CASCADE"),nullable=False)
+    event = db.relationship('Event', back_populates='event_categories')
+    category = db.relationship('Category',back_populates='event_categories')
 
     #cascading deletes from attendees deletion tries to delete eventCategory?
 
     @validates('event_id')
     def event_id_validation(self,key,e_id):
-        import ipdb; ipdb.set_trace()
         print(e_id)
         if (e_id is not None) and isinstance(e_id,int) and (db.session.get(Event,e_id)):
             return e_id
