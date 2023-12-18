@@ -8,6 +8,20 @@
 
 body{
   height: 100%;
+  color: black
+  /* background-color: 	#c8c9d6; */
+}
+
+p{
+  color: black;
+}
+
+.nav-item.active{
+  color: white;
+}
+
+body.dark{
+  background-color: #282c34;
 }
 
 div.root{

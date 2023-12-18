@@ -22,10 +22,7 @@ export const AuthProvider = ({ children }) => {
         return ''
     }
 
-
-
-    //Auth check + refresh
-    useEffect(() => {
+    const refreshUser = () =>{
         fetch('/user', {
             credentials: 'include'
         }).then(res => {
@@ -54,6 +51,13 @@ export const AuthProvider = ({ children }) => {
                 }
             }
         }).catch(e => console.log(e))
+    }
+
+
+
+    //Auth check + refresh
+    useEffect(() => {
+        refreshUser()
     }, [location.pathname, nav])
 
 

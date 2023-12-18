@@ -12,9 +12,9 @@ const SearchBar = ({ setEvents }) => {
 
   const addCategory = (category) => {
     if (!selectedCategories.includes(category)) {
-        if(category.match(/^[0-9a-z]+$/)){
+        if(category.toLowerCase().match(/^[0-9a-z]+$/)){
             if (selectedCategories.length < 5) {
-                setSelectedCategories([...selectedCategories, category]);
+                setSelectedCategories([...selectedCategories, category.toLowerCase()]);
               } else {
                 alert("You can only choose 5 filters at a time");
               }

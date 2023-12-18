@@ -1,6 +1,8 @@
 .event-view-container {
     padding: 20px;
-    border: 1px solid #ccc;
+    border: 3px solid #000000;
+    background-color:#ffffff;
+    color: #fafafa;
     border-radius: 5px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
   }
@@ -8,3 +10,7 @@
 .event-view-container h2 {
     color: #506bef;
 }
+
+/* body{
+    background-color: 	#484b6a;
+} */

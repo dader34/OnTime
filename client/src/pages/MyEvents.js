@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 import { useAuth } from '../Context/AuthContext';
-import EventCard from '../components/EventCard'; // Import your EventCard component
+import EventCard from '../components/EventCard'; 
 import '../styles/MyEvents.css'
 
 const MyEvents = () => {
@@ -17,7 +18,8 @@ const MyEvents = () => {
         <li className="nav-item">
           <a 
             className={`nav-link ${activeTab === 'myEvents' ? 'active' : ''}`} 
-            href="#myEvents" 
+            href="#myEvents"
+            style={{color:"black"}} 
             onClick={() => setActiveTab('myEvents')}
           >
             My Events
@@ -27,6 +29,7 @@ const MyEvents = () => {
           <a 
             className={`nav-link ${activeTab === 'createdEvents' ? 'active' : ''}`} 
             href="#createdEvents" 
+            style={{color:"black"}}
             onClick={() => setActiveTab('createdEvents')}
           >
             Created Events
@@ -44,7 +47,9 @@ const MyEvents = () => {
         {activeTab === 'createdEvents' &&
           (createdEvents.length? createdEvents.map(event => (
             <EventCard key={event.id} event={event} />
-          )):"You have not created any events")
+          )):<><p>You have not created any events</p><br/><Link to="/create" className="rainbow btn btn-primary">
+              <span>Create Event</span>
+            </Link></>)
         }
         </div>
         </div>

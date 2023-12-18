@@ -19,7 +19,7 @@ class Rsvp(Resource):
                         attendee = Attendee.query.filter(Attendee.user_id == user.id, Attendee.event_id == event_id).first()
                         db.session.delete(attendee)
                         db.session.commit()
-                        return {"attendees":db.session.get(Event,event_id).to_dict(only=('users',))['users']}
+                        return {"attendees":db.session.get(Event,event_id).to_dict(only=('users.name','-users.organized_events'))['users']}
                     except Exception as e:
                         db.session.rollback()
                         return {'error':e.args}

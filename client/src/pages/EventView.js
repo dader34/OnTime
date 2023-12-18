@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import '../styles/EventView.css';
 import { useAuth } from '../Context/AuthContext';
-import { Loader } from "@googlemaps/js-api-loader"
 import toast from 'react-hot-toast'
 import GoogleMap from '../components/GoogleMap';
 
@@ -23,23 +22,32 @@ const EventView = () => {
                 }else{
                     nav('/')
                 }
-            })
-
-        if (user && user.events) {
-            const ids = user.events.map(e => e.id)
-            if (ids.includes(parseInt(id))) {
-                setAttending(true)
+            }).catch(e => toast.error(e.message))
+        
+        fetch('/user',{
+            headers:{
+                "X-CSRF-TOKEN":getCookie('csrf_access_token')
             }
-            console.log(ids)
-        }
+        })
+        .then(resp =>{
+            if(resp.ok){
+                resp.json().then(data => {
+                    const ids = data.events.map(e => e.id)
+                    if (ids.includes(parseInt(id))) {
+                        setAttending(true)
+                    }
 
-        if (user && user.organized_events) {
-            const ids = user.organized_events.map(e => e.id)
-            if (ids.includes(parseInt(id))) {
-                setOwner(true)
+                    const oids = data.organized_events.map(e => e.id)
+                    if (oids.includes(parseInt(id))) {
+                        setOwner(true)
+                    }
+                })
             }
-        }
-    }, [id, user]);
+        }).catch(e => toast.error(e.message))
+            
+    }, [id, user, nav]);
+
+    console.log(event)
 
     const handleRSVP = () => {
         fetch("/rsvp", {
@@ -51,7 +59,9 @@ const EventView = () => {
             body: JSON.stringify({ "event_id": parseInt(id) }),
             credentials: 'include'
         })
-            .then(resp => resp.json().then(data => resp.ok ? (() => { setAttending(!attending); setEvent({ ...event, 'users': data['attendees'] }) })() : alert(data['error'])))
+            .then(resp => resp.json().then(data => resp.ok ? setEvent({ ...event, 'users': data['attendees'] }) : toast.error(data['error'])))
+            .catch(e => toast.error(e.message))
+            setAttending(current => !current); 
         console.log('RSVP clicked');
     };
 
@@ -67,12 +77,12 @@ const EventView = () => {
             } else {
                 resp.json().then(err => toast.error(err.error || err.msg))
             }
-        }).catch(e => toast.error(e.message || e.msg))
+        }).catch(e => toast.error(e.message))
     }
 
     const convertToLocaleString = (dateString) => {
         const date = new Date(dateString);
-        return date.toLocaleString();
+        return date.toLocaleString().slice();
     }
 
     const categories = event.categories ? event.categories.map((cat) =>
@@ -95,6 +105,9 @@ const EventView = () => {
                 <div className="col-md-8 offset-md-2">
                     <div className="event-view-container">
                         <h2 className="text-primary">{event.title}</h2>
+                        <p>
+                            <strong>Host:</strong> {event?.organizer?.name}
+                        </p>
                         <p>
                             <strong>Date: {convertToLocaleString(event.date)}</strong> 
                         </p>
