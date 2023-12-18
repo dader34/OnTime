@@ -1,17 +1,16 @@
 import sys
 sys.path.append('.')
-from setup import Resource, db, cache, limiter, jwt_required, get_jwt_identity,request
+from setup import Resource, db, limiter, jwt_required, get_jwt_identity,request
 from models.event import Event
 from models.user import User
 from models.category import Category
 from models.event_category import EventCategory
 
 class EventID(Resource):
-    @cache.cached(timeout=4)
-    @limiter.limit("15 per minute")
+    @limiter.limit("25 per minute")
     def get(self,id):
         if id is not None and (event := db.session.get(Event,id)):
-            return event.to_dict(rules=('users.name',)),200
+            return event.to_dict(rules=('users.name','organizer.name','-organizer.events','-organizer.organized_events')),200
         else:
             return {"error":"An event with that id was not found"},404
     

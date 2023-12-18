@@ -86,7 +86,7 @@ const Home = () => {
         <div className="row">
           <div className="col-md-6 offset-md-3">
             <h2>Upcoming Events</h2>
-            {topFive.map(e => <EventCard event={e} key={e.id}/>)}
+            {topFive.length ? topFive.map(e => <EventCard event={e} key={e.id}/>) : <p>You have no upcoming events...</p>}
           </div>
           {/* <div className="col-md-4">
             <h2>Featured Categories</h2>
