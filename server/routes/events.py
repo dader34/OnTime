@@ -20,7 +20,6 @@ class Events(Resource):
             search_filter = or_(
                 Event.title.ilike(f"%{search_text}%"),
                 Event.description.ilike(f"%{search_text}%"),
-                Event.location.ilike(f"%{search_text}%")
             )
             query = query.filter(search_filter)
 
@@ -48,7 +47,6 @@ class Events(Resource):
                     event = Event(title=title,description=description,image_url=image_url,date=date,location=location,organizer_id=user.id)
                     db.session.add(event)
                     db.session.commit()
-                    # Check if all categories are already available, if not, create them
                     for cat in categories:
                         if c := Category.query.filter(db.func.lower(Category.name) == db.func.lower(cat)).first():
                             ec = EventCategory(event_id=event.id,category_id=c.id)

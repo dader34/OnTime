@@ -21,7 +21,6 @@ if __name__ == "__main__":
     with app.app_context():
         print("Starting seed...")
 
-        # Seed code goes here!
         print("Clearing db...")
         User.query.delete()
         Event.query.delete()
@@ -66,7 +65,6 @@ if __name__ == "__main__":
             db.session.commit()
 
 
-            # Generate attendees for the event
             for _ in range(5):
                 attendee = Attendee(
                     user_id=rc(users).id,

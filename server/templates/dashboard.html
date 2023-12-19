@@ -16,11 +16,28 @@
         <div class="card bg-dark text-white">
             <div class="card-header">Server Time</div>
             <div class="card-body">
-                <p class="card-text">OnTime server uptime: {{ current_time }}</p>
+                <p class="card-text">OnTime server uptime: <span id="uptime"></span></p>
             </div>
         </div>
-        <!-- Additional dashboard content goes here -->
     </div>
+
+    <script>
+        const startTime = new Date('{{ start_time }}');
+        const uptimeElement = document.getElementById('uptime');
+
+        const updateUptime = () => {
+            const now = new Date();
+            const diff = now - startTime;
+
+            const hours = Math.floor(diff / 3.6e6);
+            const minutes = Math.floor((diff % 3.6e6) / 60000); 
+            const seconds = Math.floor((diff % 60000) / 1000);
+
+            uptimeElement.textContent = `${hours} hours, ${minutes} minutes, ${seconds} seconds`;
+        }
+
+        setInterval(updateUptime, 1000);
+    </script>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>

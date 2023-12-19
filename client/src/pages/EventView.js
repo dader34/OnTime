@@ -65,7 +65,7 @@ const EventView = () => {
         console.log('RSVP clicked');
     };
 
-    const handleDelete = () => {
+    const handleDeletePost = () =>{
         fetch(`/events/${id}`, {
             method: "DELETE",
             headers: {
@@ -73,11 +73,27 @@ const EventView = () => {
             },
         }).then(resp => {
             if (resp.ok) {
+                toast.success("Post deleted!")
                 nav('/')
             } else {
                 resp.json().then(err => toast.error(err.error || err.msg))
             }
         }).catch(e => toast.error(e.message))
+    }
+
+    const handleDelete = () => {
+        toast((t) => (
+            <span>
+            <b>Are you sure?</b>
+              <button className="btn" style={{background:'black',color:'white'}} onClick={() => toast.dismiss(t.id)}>
+                Dismiss
+              </button>
+              <button className="btn btn-danger" onClick={() => {handleDeletePost();toast.dismiss(t.id)}}>
+                Delete
+              </button>
+            </span>
+          ));
+        
     }
 
     const convertToLocaleString = (dateString) => {
@@ -119,7 +135,7 @@ const EventView = () => {
                         <p>
                             <strong>Description:</strong> {event.description}
                         </p>
-                        {categories && <><strong>Categories:</strong> {categories}</>}
+                        {categories && <><strong style={{color:'black'}}>Categories:</strong> {categories}</>}
                         <p>
                             <strong>Attendees:</strong> {event.users ? event.users.length : 0}
                         </p>

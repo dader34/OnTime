@@ -2,7 +2,6 @@ from flask import Flask, request, make_response, jsonify, render_template
 from flask_migrate import Migrate
 from flask_sqlalchemy import SQLAlchemy
 from flask_restful import Api, Resource
-from flask_caching import Cache
 from flask_limiter import Limiter
 from flask_limiter.util import get_remote_address
 from flask_jwt_extended import JWTManager, jwt_required, get_jwt_identity, unset_access_cookies, unset_refresh_cookies
@@ -35,15 +34,14 @@ db = SQLAlchemy(app)
 migrate = Migrate(app,db)
 api = Api(app)
 jwt = JWTManager(app)
-cache = Cache(app)
 limiter = Limiter(
     app=app,
-    key_func=get_remote_address,  # Function to generate a unique key for each visitor
-    default_limits=["2000 per day", "2000 per hour"]  # Default rate limits
+    key_func=get_remote_address,  
+    default_limits=["2000 per day", "2000 per hour"]  
 )
 
 start_time = datetime.now()
 
 @app.route('/')
 def index():
-    return render_template('dashboard.html',current_time=datetime.now() - start_time)
+    return render_template('dashboard.html',start_time=start_time)

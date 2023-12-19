@@ -37,7 +37,7 @@ const SearchBar = ({ setEvents }) => {
     fetch(`/events?${queryParams}`)
       .then((resp) => resp.json())
       .then((data) => {
-        setEvents(data);
+        setEvents(data.reverse());
       });
   };
 
