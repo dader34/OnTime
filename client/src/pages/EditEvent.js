@@ -10,7 +10,6 @@ const DefaultLocation = { lat: 40.705476946658344, lng: -74.01381364332214 };
 const DefaultZoom = 10;
 
 
-
 const EditEvent = ({ event }) => {
     const { id } = useParams(); // Fetching the ID from the URL
     const [zoom, setZoom] = useState(DefaultZoom);

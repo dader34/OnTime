@@ -11,6 +11,20 @@
     color: #506bef;
 }
 
+.category-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+  
+  .category-tag {
+    background-color: #000000;
+    color: white;
+    padding: 5px 10px;
+    border-radius: 20px;
+    font-size: 0.9em;
+  }
+
 /* body{
     background-color: 	#484b6a;
 } */

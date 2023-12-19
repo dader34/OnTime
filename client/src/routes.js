@@ -44,7 +44,7 @@ const routes = [
             path: '/profile',
             element: <AuthProvider><MyEvents/></AuthProvider>
         },{
-            path: '/edit/:id',
+            path: '/events/edit/:id',
             element: <AuthProvider><EditEvent/></AuthProvider>
         }
         ],
