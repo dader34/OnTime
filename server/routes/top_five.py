@@ -13,10 +13,9 @@ class TopFive(Resource):
             current_time = datetime.utcnow()
 
             attending_events = user.events
-            # Parse the date string to datetime objects and calculate time difference
+
             attending_events = [(event, abs(datetime.strptime(" ".join(event.date.split("T")), '%Y-%m-%d %H:%M') - current_time)) for event in attending_events]
 
-            # Sort events by time difference and get top 5
             attending_events.sort(key=lambda x: x[1])
             top_five_events = attending_events[:5]
 

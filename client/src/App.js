@@ -24,7 +24,9 @@ function App() {
   return (
       <div className={`App${darkMode ? ' dark' : ''}`}>
         <NavBar toggleDarkMode={toggleDarkMode} darkMode={darkMode}/>
+        <div className="page-container"> 
         <Outlet />
+        </div>
         <Footer />
       </div>
   );

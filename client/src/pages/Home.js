@@ -57,7 +57,7 @@ const Home = () => {
   }
 
   return (
-    <div>
+    <div className='page-container'>
       {/* Jumbotron */}
       <div className="jumbotron">
         <div className="container">
@@ -66,10 +66,6 @@ const Home = () => {
             Explore and discover exciting events in your community.
           </p>
         </div>
-      </div>
-
-      {/* Create Event Section - Moved up */}
-      <div className="container mt-4">
         <div className="row">
           <div className="col-md-12">
             <h2>Create an Event</h2>
@@ -79,24 +75,17 @@ const Home = () => {
             </Link>
           </div>
         </div>
-      </div>
-
-      {/* Main Content */}
-      <div className="container mt-2">
         <div className="row">
           <div className="col-md-6 offset-md-3">
             <h2>Upcoming Events</h2>
             {topFive.length ? topFive.map(e => <EventCard event={e} key={e.id}/>) : <p>You have no upcoming events...</p>}
           </div>
-          {/* <div className="col-md-4">
-            <h2>Featured Categories</h2>
-            {/* Content for Featured Categories
-          </div> */}
         </div>
       </div>
+
       <div className="container mt-4 mb-4">
       <div className="row">
-        <div className="col-md-12 text-center">
+        <div className="col-md-12 text-center">     
           <button className="btn btn-danger" onClick={handleDeleteProfile}>Delete Profile</button>
         </div>
       </div>

@@ -1,6 +1,6 @@
 import sys
 sys.path.append('.')
-from setup import Resource, db, jwt_required, get_jwt_identity, cache
+from setup import Resource, db, jwt_required, get_jwt_identity
 from models.user import User
 
 class GetUser(Resource):
