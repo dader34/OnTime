@@ -7,7 +7,7 @@ class GetUser(Resource):
     @jwt_required()
     def get(self):
         try:
-            if id is not None and (user := db.session.get(User,get_jwt_identity())):
+            if (user := db.session.get(User,get_jwt_identity())):
                 return user.to_dict(rules=('-events.categories','events.id','events.description','events.image_url','organized_events.id','organized_events.image_url')),200
             else:
                 return {'error':"A user with that id was not found"},404
