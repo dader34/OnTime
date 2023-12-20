@@ -12,7 +12,9 @@ const Home = () => {
 
   useEffect(() => {
     user&&
-    fetch('/topfive')
+    fetch('/topfive',{
+        credentials: 'include'
+    })
       .then(res => {
         if (res.ok) {
           res.json().then(setTopFive);
