@@ -27,17 +27,17 @@ class Event(db.Model, SerializerMixin):
 
     @validates('title')
     def title_validation(self,key,title):
-        if title is not None and isinstance(title,str) and (5 <= len(title) <= 20):
+        if title is not None and isinstance(title,str) and (5 <= len(title) <= 50):
             return title
         else:
-            raise ValueError('Title must be a str between 5 and 20 chars')
+            raise ValueError('Title must be a str between 5 and 50 chars')
         
     @validates('description')
     def description_validation(self,key,description):
-        if description is not None and isinstance(description,str) and (10 <= len(description) <= 100):
+        if description is not None and isinstance(description,str) and (10 <= len(description) <= 200):
             return description
         else:
-            raise ValueError('Description must be a str between 10 and 100 chars')
+            raise ValueError('Description must be a str between 10 and 200 chars')
     
     # @validates('date')
     # def date_validation(self,key,date):
