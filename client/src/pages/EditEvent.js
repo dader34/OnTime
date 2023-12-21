@@ -75,9 +75,6 @@ const EditEvent = () => {
                 .then(response => response.json())
                 .then(
                     data => {
-                        console.log(data.organizer_id === user.id)
-                        console.log(data.organizer_id)
-                        console.log(user.id)
                         if(data.organizer_id === user.id){
                             formik.setValues({
                                 title: data.title || '',
@@ -112,7 +109,6 @@ const EditEvent = () => {
 
 
     const handleSubmit = async (e) => {
-        console.log(formik.values)
         e.preventDefault();
         await formik.submitForm()
 
@@ -121,7 +117,6 @@ const EditEvent = () => {
         const errorKeys = Object.keys(errors)
 
         if (Object.keys(errors).length > 0) {
-            console.log(errors[errorKeys[0]])
             toast.error(errors[errorKeys[0]])
         }
 
@@ -158,7 +153,6 @@ const EditEvent = () => {
     const handleRemoveCategory = (index) => {
         const filteredCategories = formik.values.categories.filter((_, idx) => idx !== index);
         formik.setFieldValue('categories', filteredCategories);
-        console.log(formik.values.categories)
     };
 
     return (

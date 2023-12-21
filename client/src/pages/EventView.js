@@ -50,7 +50,6 @@ const EventView = () => {
             .catch((e) => toast.error(e.message));
     }, [id, user, nav, getCookie]);
 
-    console.log(event);
 
     const handleRSVP = () => {
         fetch("/rsvp", {
@@ -73,7 +72,6 @@ const EventView = () => {
             )
             .catch((e) => toast.error(e.message || e.msg));
         setAttending((current) => !current);
-        console.log("RSVP clicked");
     };
 
     const handleDeletePost = () => {
@@ -190,7 +188,7 @@ const EventView = () => {
                                 <>
                                     <strong style={{ color: "black" }}>Categories:</strong>{" "}
                                     {event.categories.map((cat) => (
-                                        <span key={cat.name} className="category-tag">
+                                        <span key={`cat.name-${Math.random()}`} className="category-tag">
                                             {cat.name}
                                         </span>
                                     ))}

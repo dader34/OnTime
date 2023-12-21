@@ -41,7 +41,7 @@ const CreateEvent = () => {
           categories: values.categories,
           location: `${values.location.lat},${values.location.lng}`,
         };
-        fetch(`${URL}/events`, {
+        fetch(`/events`, {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
@@ -78,7 +78,6 @@ const CreateEvent = () => {
   }, [formik.values.location, zoom]);
 
   const handleSubmit = async (e) => {
-    console.log(formik.values)
     e.preventDefault();
     await formik.submitForm()
 
@@ -87,7 +86,6 @@ const CreateEvent = () => {
     const errorKeys = Object.keys(errors)
 
     if (Object.keys(errors).length > 0) {
-      console.log(errors[errorKeys[0]])
       toast.error(errors[errorKeys[0]])
     }
 
