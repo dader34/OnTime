@@ -148,104 +148,110 @@ const EventView = () => {
         return date.toLocaleString().slice();
     };
 
-    return (
-        <div className="container mt-4">
-            <div className="jumbotron">
-                <img
-                    src={event.image_url}
-                    alt={event.title}
-                    className="img-fluid rounded"
-                    style={{ maxHeight: "300px", objectFit: "cover" }}
-                    onError={({ currentTarget }) => {
-                        currentTarget.src =
-                            "https://images.pexels.com/photos/860227/pexels-photo-860227.jpeg?auto=compress&cs=tinysrgb&w=150 150w, https://images.pexels.com/photos/860227/pexels-photo-860227.jpeg?auto=compress&cs=tinysrgb&w=300 300w, https://images.pexels.com/photos/860227/pexels-photo-860227.jpeg?auto=compress&cs=tinysrgb&w=400 400w, https://images.pexels.com/photos/860227/pexels-photo-860227.jpeg?auto=compress&cs=tinysrgb&w=600 600w, https://images.pexels.com/photos/860227/pexels-photo-860227.jpeg?auto=compress&cs=tinysrgb&w=800 800w, https://images.pexels.com/photos/860227/pexels-photo-860227.jpeg?auto=compress&cs=tinysrgb&w=1200 1200w, https://images.pexels.com/photos/860227/pexels-photo-860227.jpeg?auto=compress&cs=tinysrgb&w=1600 1600w";
-                    }}
-                />
-            </div>
-            <div className="row">
-                <div className="col-md-8 offset-md-2">
-                    <div className="event-view-container">
-                        <h2 className="text-primary">{event.title}</h2>
-                        <p>
-                            <strong>Host:</strong> {event?.organizer?.name}
-                        </p>
-                        <p>
-                            <strong>Date: {convertToLocaleString(event.date)}</strong>
-                        </p>
-                        <p>
-                            <strong>Location:</strong>
-                        </p>
-                        {event.location && (
-                            <GoogleMap
-                                lat={parseFloat(event.location.split(",")[0])}
-                                lng={parseFloat(event.location.split(",")[1])}
-                                zoom={15}
-                            />
-                        )}
-                        <p>
-                            <strong>Description:</strong> {event.description}
-                        </p>
-                        {event?.categories?.length && (
-                            <>
-                                <strong style={{ color: "black" }}>Categories:</strong>{" "}
-                                {event.categories.map((cat) => (
-                                    <span key={cat.name} className="category-tag">
-                                        {cat.name}
-                                    </span>
-                                ))}
-                            </>
-                        )}
-                        <p>
-                            <strong>Attendees:</strong> {event.users ? event.users.length : 0}
-                        </p>
+    return event?.title ? (
+        <div className="page-container">
+            <div className="container mt-4">
+                <div className="jumbotron">
+                    <img
+                        src={event.image_url}
+                        alt={event.title}
+                        className="img-fluid rounded"
+                        style={{ maxHeight: "300px", objectFit: "cover" }}
+                        onError={({ currentTarget }) => {
+                            currentTarget.src =
+                                "https://images.pexels.com/photos/860227/pexels-photo-860227.jpeg?auto=compress&cs=tinysrgb&w=150 150w, https://images.pexels.com/photos/860227/pexels-photo-860227.jpeg?auto=compress&cs=tinysrgb&w=300 300w, https://images.pexels.com/photos/860227/pexels-photo-860227.jpeg?auto=compress&cs=tinysrgb&w=400 400w, https://images.pexels.com/photos/860227/pexels-photo-860227.jpeg?auto=compress&cs=tinysrgb&w=600 600w, https://images.pexels.com/photos/860227/pexels-photo-860227.jpeg?auto=compress&cs=tinysrgb&w=800 800w, https://images.pexels.com/photos/860227/pexels-photo-860227.jpeg?auto=compress&cs=tinysrgb&w=1200 1200w, https://images.pexels.com/photos/860227/pexels-photo-860227.jpeg?auto=compress&cs=tinysrgb&w=1600 1600w";
+                        }}
+                    />
+                </div>
+                <div className="row">
+                    <div className="col-md-8 offset-md-2">
+                        <div className="event-view-container">
+                            <h2 className="text-primary">{event.title}</h2>
+                            <p>
+                                <strong>Host:</strong> {event?.organizer?.name}
+                            </p>
+                            <p>
+                                <strong>Date: {convertToLocaleString(event.date)}</strong>
+                            </p>
+                            <p>
+                                <strong>Location:</strong>
+                            </p>
+                            {event.location && (
+                                <GoogleMap
+                                    lat={parseFloat(event.location.split(",")[0])}
+                                    lng={parseFloat(event.location.split(",")[1])}
+                                    zoom={15}
+                                />
+                            )}
+                            <p>
+                                <strong>Description:</strong> {event.description}
+                            </p>
+                            {event?.categories?.length && (
+                                <>
+                                    <strong style={{ color: "black" }}>Categories:</strong>{" "}
+                                    {event.categories.map((cat) => (
+                                        <span key={cat.name} className="category-tag">
+                                            {cat.name}
+                                        </span>
+                                    ))}
+                                </>
+                            )}
+                            <p>
+                                <strong>Attendees:</strong> {event.users ? event.users.length : 0}
+                            </p>
 
-                        <br />
+                            <br />
 
-                        {owner ? (
-                            <div
-                                className="d-flex justify-content-center mt-3"
-                                style={{ flexDirection: "column" }}
-                            >
-                                <button
-                                    className="btn btn-primary me-3"
-                                    onClick={() => nav(`/events/${id}/edit`)}
-                                    style={{ width: "100%" }}
+                            {owner ? (
+                                <div
+                                    className="d-flex justify-content-center mt-3"
+                                    style={{ flexDirection: "column" }}
                                 >
-                                    Edit Event
-                                </button>
-                                <br />
-                                <button className="btn btn-danger" onClick={handleDelete}>
-                                    Delete Event
-                                </button>
-                            </div>
-                        ) : (
-                            <div
-                                className="d-flex justify-content-center mt-3"
-                                style={{ flexDirection: "column" }}
-                            >
-                                <button
-                                    className={`btn ${attending ? "btn-danger" : "btn-success"}`}
-                                    onClick={handleRSVP}
+                                    <button
+                                        className="btn btn-primary me-3"
+                                        onClick={() => nav(`/events/${id}/edit`)}
+                                        style={{ width: "100%" }}
+                                    >
+                                        Edit Event
+                                    </button>
+                                    <br />
+                                    <button className="btn btn-danger" onClick={handleDelete}>
+                                        Delete Event
+                                    </button>
+                                </div>
+                            ) : (
+                                <div
+                                    className="d-flex justify-content-center mt-3"
+                                    style={{ flexDirection: "column" }}
                                 >
-                                    {!attending ? "I'm in!" : "Withdraw"}
-                                </button>
-                                <br />
+                                    <button
+                                        className={`btn ${attending ? "btn-danger" : "btn-success"}`}
+                                        onClick={handleRSVP}
+                                    >
+                                        {!attending ? "I'm in!" : "Withdraw"}
+                                    </button>
+                                    <br />
 
-                                <button
-                                    onClick={createGoogleCalendarEventUrl}
-                                    target="_blank"
-                                    rel="noopener noreferrer"
-                                    className="btn btn-primary"
-                                >
-                                    Add to Google Calendar
-                                </button>
-                            </div>
-                        )}
+                                    <button
+                                        onClick={createGoogleCalendarEventUrl}
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        className="btn btn-primary"
+                                    >
+                                        Add to Google Calendar
+                                    </button>
+                                </div>
+                            )}
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-    );
+    ) : (
+        <div className="page-container">
+            <h1>Loading...</h1>
+        </div>
+    )
 };
 
 export default EventView;

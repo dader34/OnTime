@@ -28,8 +28,8 @@ const EditEvent = () => {
             categoryInput: ''
         },
         validationSchema: Yup.object({
-            title: Yup.string().min(5, "Title must be at least 5 characters").max(20, "Title can be 20 characters max").required('Title is required'),
-            description: Yup.string().min(10, "Description must be at least 10 characters").max(100, "Description can be 100 characters max").required('Description is required'),
+            title: Yup.string().min(5, "Title must be at least 5 characters").max(50, "Title can be 50 characters max").required('Title is required'),
+            description: Yup.string().min(10, "Description must be at least 10 characters").max(200, "Description can be 200 characters max").required('Description is required'),
             imageUrl: Yup.string().url('Invalid URL').required('Image URL is required'),
             date: Yup.string().required('Date and Time are required'),
         }),
