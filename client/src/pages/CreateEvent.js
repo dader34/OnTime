@@ -9,8 +9,9 @@ import { useAuth } from '../Context/AuthContext';
 const DefaultLocation = { lat: 40.705476946658344, lng: -74.01381364332214 };
 const DefaultZoom = 10;
 
-const CreateEvent = ({ event }) => {
+const CreateEvent = () => {
   const [zoom, setZoom] = useState(DefaultZoom);
+  const [submitted,setSubmitted] = useState(false)
   const {getCookie} = useAuth()
   const nav = useNavigate()
 
@@ -31,29 +32,36 @@ const CreateEvent = ({ event }) => {
       date: Yup.string().required('Date and Time are required'),
     }),
     onSubmit: values => {
-      const postData = {
-        title: values.title,
-        description: values.description,
-        image_url: values.imageUrl,
-        date: values.date,
-        categories: values.categories,
-        location: `${values.location.lat},${values.location.lng}`,
-      };
-      fetch('/events', {
-        method: "POST",
-        headers: {
-          'Content-Type': 'application/json',
-          'X-CSRF-TOKEN': getCookie('csrf_access_token')
-        },
-        body: JSON.stringify(postData),
-        credentials: 'include'
-      }).then(resp => {
-        if (resp.ok) {
-          resp.json().then(data => nav(`/events/${data['success']}`))
-        } else {
-          resp.json().then(err => toast.error(err.error || err.msg))
-        }
-      }).catch(e => toast.error(e.message || e.msg))
+      if (!submitted) {
+        const postData = {
+          title: values.title,
+          description: values.description,
+          image_url: values.imageUrl,
+          date: values.date,
+          categories: values.categories,
+          location: `${values.location.lat},${values.location.lng}`,
+        };
+        fetch(`${URL}/events`, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            "X-CSRF-TOKEN": getCookie("csrf_access_token"),
+          },
+          body: JSON.stringify(postData),
+          credentials: "include",
+        })
+          .then((resp) => {
+            if (resp.ok) {
+              resp.json().then((data) => nav(`/events/${data["success"]}`));
+            } else {
+              resp.json().then((err) => toast.error(err.error || err.msg));
+            }
+          })
+          .catch((e) => toast.error(e.message || e.msg));
+        setSubmitted(true);
+      } else {
+        toast.error("You have already submitted this event");
+      }
     },
   });
 
