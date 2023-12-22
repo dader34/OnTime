@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { useAuth } from '../Context/AuthContext';
 import '../styles/NavBar.css'
 
-const NavBar = ({ darkMode, toggleDarkMode}) => {
+const NavBar = () => {
   const { logout } = useAuth();
   const [collapsed, setCollapsed] = useState(false);
 
@@ -22,19 +22,11 @@ const NavBar = ({ darkMode, toggleDarkMode}) => {
             <li className="nav-item">
               <Link className="nav-link" to="/profile">My Events</Link>
             </li>
-            {/* <li className="nav-item">
-              <Link className="nav-link" to="/about">About</Link>
-            </li> */}
             <li className="nav-item">
               <Link className="nav-link" to="/events">Events</Link>
             </li>
             <li className="nav-item">
               <Link className="nav-link" onClick={logout}>Logout</Link>
-            </li>
-            <li className="nav-item">
-              <Link className="nav-link" onClick={toggleDarkMode} >
-                {darkMode ? 'Light Mode' : 'Dark Mode'}
-              </Link>
             </li>
           </ul>
         </div>

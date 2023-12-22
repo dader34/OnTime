@@ -16,16 +16,18 @@ const Events = () => {
     return (
       <>
         <SearchBar setEvents={setEvents} />
+        <div className="page-container"> 
         <div className="container mt-5" style={{ display: 'flex', justifyContent: 'space-evenly', alignItems: 'flex-start' }}>
           <div className="row" style={{justifyContent:'space-around'}}>
             {events.length ? events.map((event) => (
-              <div key={event.id} className="col-md-6 mb-4">
+              <div key={event.id} className={events.length > 1 ? "col-md-6 mb-4" : "col-md-12 d-flex justify-content-center mb-2" }>
                 <EventCard event={event} />
               </div>
             )) : <><h1>Looks like no one has made a post yet, be the first!</h1><br/><Link to="/create" className="rainbow btn btn-primary" style={{width:'12%'}}>
               <span>Create Event</span>
             </Link></>}
           </div>
+        </div>
         </div>
       </>
     );

@@ -55,7 +55,7 @@ const SearchBar = ({ setEvents }) => {
       <input
         type="search"
         className="form-control"
-        placeholder="Search in title, description, and location"
+        placeholder="Search in title and description"
         aria-label="Search"
         aria-describedby="search-button"
         onChange={(e) => setSearchText(e.target.value)}
