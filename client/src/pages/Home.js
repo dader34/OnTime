@@ -48,12 +48,23 @@ const Home = () => {
     toast((t) => (
         <span>
         <b>Are you sure?</b>
-          <button className="btn" style={{background:'black',color:'white'}} onClick={() => toast.dismiss(t.id)}>
+        <div className="d-flex align-items-center justify-content-center mt-2">
+          <button
+            className="btn btn-secondary btn-sm me-2"
+            onClick={() => toast.dismiss(t.id)}
+          >
             Dismiss
           </button>
-          <button className="btn btn-danger" onClick={() => {handleDelete();toast.dismiss(t.id)}}>
+          <button
+            className="btn btn-danger btn-sm"
+            onClick={() => {
+              handleDelete();
+              toast.dismiss(t.id);
+            }}
+          >
             Delete
           </button>
+        </div>
         </span>
       ));
   }

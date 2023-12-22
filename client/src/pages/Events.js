@@ -16,6 +16,7 @@ const Events = () => {
     return (
       <>
         <SearchBar setEvents={setEvents} />
+        <div className="page-container"> 
         <div className="container mt-5" style={{ display: 'flex', justifyContent: 'space-evenly', alignItems: 'flex-start' }}>
           <div className="row" style={{justifyContent:'space-around'}}>
             {events.length ? events.map((event) => (
@@ -26,6 +27,7 @@ const Events = () => {
               <span>Create Event</span>
             </Link></>}
           </div>
+        </div>
         </div>
       </>
     );

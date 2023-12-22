@@ -7,26 +7,10 @@ import './styles/App.css';
 
 function App() {
 
-  const [darkMode, setDarkMode] = useState(() => {
-    return localStorage.getItem('darkMode') === 'true' || false; 
-  });
-
-  const toggleDarkMode = () => {
-    document.body.classList.toggle('dark')
-    setDarkMode(prevMode => !prevMode);
-  };
-
-  useEffect(() => {
-    localStorage.setItem('darkMode', darkMode);
-  }, [darkMode]);
-
-
   return (
-      <div className={`App${darkMode ? ' dark' : ''}`}>
-        <NavBar toggleDarkMode={toggleDarkMode} darkMode={darkMode}/>
-        <div className="page-container"> 
+      <div className='App'>
+        <NavBar />
         <Outlet />
-        </div>
         <Footer />
       </div>
   );

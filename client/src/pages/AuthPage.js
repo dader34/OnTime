@@ -95,7 +95,7 @@ const AuthPage = () => {
   //have 2 formik/yup schemas to handle both signup and login and choose which one based off of auth state?
 
   return (
-    <div style={{ textAlign: 'center' }}>
+    <div style={{ textAlign: 'center' }}  className="page-container" >
       <h1>OnTime</h1>
       <div className="container auth-container">
         <div className="auth-form">

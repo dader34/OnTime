@@ -150,6 +150,7 @@ const EditEvent = () => {
     };
 
     return (
+        <div className="page-container"> 
         <div className="container mt-4">
             <h2>Create a New Event</h2>
             <form onSubmit={handleSubmit}>
@@ -211,6 +212,7 @@ const EditEvent = () => {
                 <br />
                 <button type="submit" className="btn btn-primary" disabled={formik.isSubmitting}>Submit</button>
             </form>
+        </div>
         </div>
     );
 };

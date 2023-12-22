@@ -120,6 +120,7 @@ const CreateEvent = () => {
   };
 
   return (
+    <div className="page-container"> 
     <div className="container mt-4">
       <h2>Create a New Event</h2>
       <form onSubmit={handleSubmit}>
@@ -181,6 +182,7 @@ const CreateEvent = () => {
         <br />
         <button type="submit" className="btn btn-primary" disabled={formik.isSubmitting}>Create Event</button>
       </form>
+    </div>
     </div>
   );
 };
