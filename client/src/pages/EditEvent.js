@@ -13,7 +13,6 @@ const DefaultZoom = 10;
 const EditEvent = () => {
     const { id } = useParams();
     const [zoom, setZoom] = useState(DefaultZoom);
-    const [submitted,setSubmitted] = useState(false)
     const { user, getCookie } = useAuth()
     const nav = useNavigate();
 
@@ -34,48 +33,43 @@ const EditEvent = () => {
             date: Yup.string().required('Date and Time are required'),
         }),
         onSubmit: values => {
-            if(!submitted){
-                const postData = {
-                    title: values.title,
-                    description: values.description,
-                    image_url: values.imageUrl,
-                    date: values.date,
-                    categories: values.categories,
-                    location: `${values.location.lat},${values.location.lng}`,
-                };
-                fetch(`/events/${id}`, {
-                    method: "PATCH",
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'X-CSRF-TOKEN': getCookie('csrf_access_token')
-                    },
-                    body: JSON.stringify(postData),
-                    credentials: 'include'
-                }).then(resp => {
-                    if (resp.ok) {
-                        //Check if user id matches event organizer id, if not alert that it doesnt match, and redirect to /
-                        resp.json().then(data => {
-                            nav(`/events/${data['success']}`)})
-                    } else {
-                        resp.json().then(err => toast.error(err.error || err.msg))
-                    }
-                }).catch(e => toast.error(e.message || e.msg))
-            }else{
-                toast.error("You have already submitted this event")
-            }
-            
+            const postData = {
+                title: values.title,
+                description: values.description,
+                image_url: values.imageUrl,
+                date: values.date,
+                categories: values.categories,
+                location: `${values.location.lat},${values.location.lng}`,
+            };
+            fetch(`/events/${id}`, {
+                method: "PATCH",
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRF-TOKEN': getCookie('csrf_access_token')
+                },
+                body: JSON.stringify(postData),
+                credentials: 'include'
+            }).then(resp => {
+                if (resp.ok) {
+                    resp.json().then(data => {
+                        nav(`/events/${data['success']}`)
+                    })
+                } else {
+                    resp.json().then(err => toast.error(err.error || err.msg))
+                }
+            }).catch(e => toast.error(e.message || e.msg))
+
         },
     });
 
 
-    // Fetch event data when component mounts
     useEffect(() => {
         user?.id &&
             fetch(`/events/${id}`)
                 .then(response => response.json())
                 .then(
                     data => {
-                        if(data.organizer_id === user.id){
+                        if (data.organizer_id === user.id) {
                             formik.setValues({
                                 title: data.title || '',
                                 description: data.description || '',
@@ -87,25 +81,25 @@ const EditEvent = () => {
                                     : DefaultLocation,
                                 categoryInput: ''
                             });
-                        }else{
+                        } else {
                             toast.error('You dont have permission to edit this post')
                             nav(`/events/${id}`)
                         }
-                        
+
                     });
     }, [id, user]);
 
     const memoizedMapPicker = useMemo(() => {
         return (
-          <GoogleMapPicker
-            defaultLocation={formik.values.location}
-            zoom={zoom}
-            onChangeLocation={(lat, lng) => {
-              formik.setFieldValue('location', { lat, lng });
-            }}
-          />
+            <GoogleMapPicker
+                defaultLocation={formik.values.location}
+                zoom={zoom}
+                onChangeLocation={(lat, lng) => {
+                    formik.setFieldValue('location', { lat, lng });
+                }}
+            />
         );
-      }, [formik.values.location, zoom]);
+    }, [formik.values.location, zoom]);
 
 
     const handleSubmit = async (e) => {
@@ -215,7 +209,7 @@ const EditEvent = () => {
                     </div>
                 </div>
                 <br />
-                <button type="submit" className="btn btn-primary">Submit</button>
+                <button type="submit" className="btn btn-primary" disabled={formik.isSubmitting}>Submit</button>
             </form>
         </div>
     );

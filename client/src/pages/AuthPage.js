@@ -78,7 +78,6 @@ const AuthPage = () => {
 
 
   const handleAuth = async(e,form) => {
-    console.log(e,form)
     e.preventDefault();
     await form.submitForm()
 
@@ -87,7 +86,6 @@ const AuthPage = () => {
     const errorKeys = Object.keys(errors)
 
     if (Object.keys(errors).length > 0) {
-      console.log(errors[errorKeys[0]])
       toast.error(errors[errorKeys[0]])
     }
     
