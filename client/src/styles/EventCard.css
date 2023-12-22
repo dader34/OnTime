@@ -3,6 +3,10 @@
     min-width: 300px;
   }
   
+  .custom-card{
+    min-width: 300px;
+  }
+
   .card:hover {
     transform: translateY(-5px);
     /* background-color: #506bef; */
