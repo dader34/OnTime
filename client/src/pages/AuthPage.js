@@ -36,8 +36,6 @@ const AuthPage = () => {
             error: "Login failed"
           }
         );
-    
-        nav('/');
       }catch(e){
         
       }
@@ -67,8 +65,6 @@ const AuthPage = () => {
             error: "Sign up failed"
           }
         );
-    
-        nav('/');
       }catch(e){
         
       }
