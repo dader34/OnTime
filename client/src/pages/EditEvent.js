@@ -150,69 +150,69 @@ const EditEvent = () => {
     };
 
     return (
-        <div className="page-container"> 
-        <div className="container mt-4">
-            <h2>Create a New Event</h2>
-            <form onSubmit={handleSubmit}>
-                <div className="mb-3">
-                    <label htmlFor="title" className="form-label">Title</label>
-                    <input type="text" className="form-control" id="title" value={formik.values.title} onChange={formik.handleChange} />
-                </div>
-                <div className="mb-3">
-                    <label htmlFor="description" className="form-label">Description</label>
-                    <textarea className="form-control" id="description" rows="4" value={formik.values.description} onChange={formik.handleChange} ></textarea>
-                </div>
-                <div className="mb-3">
-                    <label htmlFor="imageUrl" className="form-label">Image URL</label>
-                    <input className="form-control" id="imageUrl" value={formik.values.imageUrl} onChange={formik.handleChange} />
-                </div>
-                <div className="mb-3">
-                    <label htmlFor="date" className="form-label">Date and Time</label>
-                    <input type="datetime-local" className="form-control" id="date" value={formik.values.date} onChange={formik.handleChange} />
-                </div>
-                <div className="mb-3">
-                    <label className="form-label">Categories</label>
-                    <div className="input-group">
-                        <input type="text" className="form-control" id="categoryInput" value={formik.values.categoryInput} onChange={e => formik.setFieldValue("categoryInput", e.target.value.toLowerCase())} placeholder="Add a category" />
-                        <button type="button" className="btn btn-outline-secondary" onClick={handleAddCategory} disabled={formik.values.categories.length >= 5}>+</button>
+        <div className="page-container">
+            <div className="container mt-4">
+                <h2>Create a New Event</h2>
+                <form onSubmit={handleSubmit}>
+                    <div className="mb-3">
+                        <label htmlFor="title" className="form-label">Title</label>
+                        <input type="text" className="form-control" id="title" value={formik.values.title} onChange={formik.handleChange} />
                     </div>
-                    <div>
-                        {formik.values.categories.map((category, index) => (
-                            <span key={index} className="badge bg-secondary me-2">
-                                {category}
-                                <button type="button" className="btn btn-sm btn-danger ms-2" onClick={() => handleRemoveCategory(index)}>X</button>
-                            </span>
-                        ))}
+                    <div className="mb-3">
+                        <label htmlFor="description" className="form-label">Description</label>
+                        <textarea className="form-control" id="description" rows="4" value={formik.values.description} onChange={formik.handleChange} ></textarea>
                     </div>
-                </div>
-                <div id="mapsContainer">
-                    <div className="mt-4">
-                        {memoizedMapPicker}
+                    <div className="mb-3">
+                        <label htmlFor="imageUrl" className="form-label">Image URL</label>
+                        <input className="form-control" id="imageUrl" value={formik.values.imageUrl} onChange={formik.handleChange} />
                     </div>
-                    <div className="mt-3 row">
-                        <div className="col">
-                            <label>Reset:</label>
-                            <br />
-                            <button className="btn btn-secondary" onClick={handleResetLocation}>Reset Location</button>
+                    <div className="mb-3">
+                        <label htmlFor="date" className="form-label">Date and Time</label>
+                        <input type="datetime-local" className="form-control" id="date" value={formik.values.date} onChange={formik.handleChange} />
+                    </div>
+                    <div className="mb-3">
+                        <label className="form-label">Categories</label>
+                        <div className="input-group">
+                            <input type="text" className="form-control" id="categoryInput" value={formik.values.categoryInput} onChange={e => formik.setFieldValue("categoryInput", e.target.value.toLowerCase())} placeholder="Add a category" />
+                            <button type="button" className="btn btn-outline-secondary" onClick={handleAddCategory} disabled={formik.values.categories.length >= 5}>+</button>
                         </div>
-                        <div className="col">
-                            <label>Latitude:</label>
-                            <input type='text' value={formik.values.location.lat} disabled className="form-control" />
-                        </div>
-                        <div className="col">
-                            <label>Longitude:</label>
-                            <input type='text' value={formik.values.location.lng} disabled className="form-control" />
-                        </div>
-                        <div className="col">
-                            <label>Zoom:</label>
-                            <input type='text' value={zoom} disabled className="form-control" />
+                        <div>
+                            {formik.values.categories.map((category, index) => (
+                                <span key={index} className="badge bg-secondary me-2">
+                                    {category}
+                                    <button type="button" className="btn btn-sm btn-danger ms-2" onClick={() => handleRemoveCategory(index)}>X</button>
+                                </span>
+                            ))}
                         </div>
                     </div>
-                </div>
-                <br />
-                <button type="submit" className="btn btn-primary" disabled={formik.isSubmitting}>Submit</button>
-            </form>
-        </div>
+                    <div id="mapsContainer">
+                        <div className="mt-4">
+                            {memoizedMapPicker}
+                        </div>
+                        <div className="mt-3 row">
+                            <div className="col">
+                                <label>Reset:</label>
+                                <br />
+                                <button className="btn btn-secondary" onClick={handleResetLocation}>Reset Location</button>
+                            </div>
+                            <div className="col">
+                                <label>Latitude:</label>
+                                <input type='text' value={formik.values.location.lat} disabled className="form-control" />
+                            </div>
+                            <div className="col">
+                                <label>Longitude:</label>
+                                <input type='text' value={formik.values.location.lng} disabled className="form-control" />
+                            </div>
+                            <div className="col">
+                                <label>Zoom:</label>
+                                <input type='text' value={zoom} disabled className="form-control" />
+                            </div>
+                        </div>
+                    </div>
+                    <br />
+                    <button type="submit" className="btn btn-primary" disabled={formik.isSubmitting}>Submit</button>
+                </form>
+            </div>
         </div>
     );
 };

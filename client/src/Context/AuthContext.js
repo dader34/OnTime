@@ -22,7 +22,7 @@ export const AuthProvider = ({ children }) => {
         return ''
     }
 
-    const refreshUser = () =>{
+    const refreshUser = () => {
         fetch('/user', {
             credentials: 'include'
         }).then(res => {
@@ -40,13 +40,10 @@ export const AuthProvider = ({ children }) => {
                             res.json().then(data => setUser(data))
                         } else {
                             nav('/login')
-                            // res.json().then(err => handleNewError(err['error'] || err.msg))
                         }
                     })
-                    .catch(e => console.log(e))
+                        .catch(e => console.log(e))
                 } else {
-                    // res.json().then(err => toast.error(err['error'] || err.msg))
-                    // toast.error("Refresh token has expired")
                     nav('/login')
                 }
             }
@@ -73,41 +70,42 @@ export const AuthProvider = ({ children }) => {
             .then(resp => resp.json().then(data => {
                 if (resp.ok) {
                     setUser(data);
-                    return data; 
+                    nav('/')
+                    return data;
                 } else {
-                    return Promise.reject(new Error(data['error'] || 'An error occurred')); // Return a rejected promise
+                    return Promise.reject(new Error(data['error'] || 'Login failes'));
                 }
             }))
             .catch(error => {
-                // handle the error but don't re-throw it
                 toast.error(error.message || "An error has occurred, please try again.");
-                return Promise.reject(error); // Return the rejected promise
+                return Promise.reject(error);
             })
     };
 
     const signUp = (username, password) => {
         return fetch('/signup', {
-          method: "POST",
-          headers: {
-            "Content-Type": 'application/json'
-          },
-          credentials: 'include',
-          body: JSON.stringify({ "username": username, "password": password })
+            method: "POST",
+            headers: {
+                "Content-Type": 'application/json'
+            },
+            credentials: 'include',
+            body: JSON.stringify({ "username": username, "password": password })
         })
-        .then(resp => resp.json().then(data => {
-          if (resp.ok) {
-            setUser(data);
-            return data; 
-          } else {
-            return Promise.reject(new Error(data['error'] || 'Signup failed')); // Return a rejected promise
-          }
-        }))
-        .catch(error => {
-          toast.error(error.message || "An error has occurred, please try again.");
-          return Promise.reject(error);
-        });
-      };
-      
+            .then(resp => resp.json().then(data => {
+                if (resp.ok) {
+                    setUser(data);
+                    nav('/')
+                    return data;
+                } else {
+                    return Promise.reject(new Error(data['error'] || 'Signup failed'));
+                }
+            }))
+            .catch(error => {
+                toast.error(error.message || "An error has occurred, please try again.");
+                return Promise.reject(error);
+            });
+    };
+
 
     const logout = () => {
         setUser(null);
