@@ -14,6 +14,7 @@ export const AuthProvider = ({ children }) => {
     const nav = useNavigate()
     const location = useLocation()
     const apiKey = process.env.REACT_APP_API_KEY
+    console.log(user + "hello")
 
     const getCookie = (name) => {
         const value = `; ${document.cookie}`;
